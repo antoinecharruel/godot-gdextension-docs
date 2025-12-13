@@ -1,0 +1,1295 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="1 - Getting started 2 - Setting up the playable area Create the root node Add the floor Add collision to the floor Set the collision layer for the floor Add light 3 - Setting up the player scene Create the player scen..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>(DEV) Tutorial - InteractiveGrid3D &mdash; Godot Engine (latest) documentation in English</title>
+
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=41081ede" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/dev.css?v=b28a5b3c" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/js/custom.js?v=e9f6a699"></script>
+      <script data-domain="godotengine.org" defer="defer" src="https://plausible.godot.foundation/js/script.file-downloads.outbound-links.js"></script>
+    <script src="../_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc" />
+  
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="InteractiveGrid3D" href="interactive-grid-3d.html" />
+<meta name="doc_version" content="latest" />
+<meta name="doc_is_latest" content="False" />
+<meta name="doc_pagename" content="interactive-grid/tutorial-interactive-grid-3d" />
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Antoine Charruel GDExtensions Documentation
+              <img src="../_static/docs_logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../about.html#description">Description</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">InteractiveGrid GDExtension</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interactive-grid-3d.html">InteractiveGrid3D</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid-3d.html#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid-3d.html#properties">Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid-3d.html#methods">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid-3d.html#enumerations">Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid-3d.html#property-descriptions">Property Descriptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid-3d.html#method-descriptions">Method Descriptions</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial - InteractiveGrid3D</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#getting-started">1 - Getting started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-the-playable-area">2 - Setting up the playable area</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#create-the-root-node">Create the root node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-the-floor">Add the floor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-collision-to-the-floor">Add collision to the floor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#set-the-collision-layer-for-the-floor">Set the collision layer for the floor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-light">Add light</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-the-player-scene">3 - Setting up the player scene</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#create-the-player-scene">Create the player scene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-the-player-body">Add the player body</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#attach-a-collisionshape3d-to-the-player">Attach a CollisionShape3D to the player</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#attach-a-camera3d-to-the-player">Attach a Camera3D to the player</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#moving-the-player-with-code">4 - Moving the player with code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#raycast-from-mouse">5 - Raycast from mouse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#add-a-raycast3d-node">Add a Raycast3D node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#attach-the-script">Attach the script</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-the-interactive-grid">6 - Setting up the interactive grid</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#add-interactivegrid3d">Add InteractiveGrid3D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#set-grid-size">Set grid size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-a-cell-size">Add a cell Size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-a-cell-mesh">Add a cell Mesh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-a-cell-shape">Add a cell Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#set-layout">Set Layout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#set-movement">Set Movement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#interactive-grid-scripting">7 - Interactive grid scripting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#attach-a-script">Attach a script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#input">Input</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-world-scene">8 - Setup World Scene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-custom-shader">10 - Add custom Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-custom-cell-data">11 - Add custom cell data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-adding-a-trap-that-interacts-with-the-grid">Example: Adding a Trap That Interacts with the Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accessing-customcelldata-in-the-shader">Accessing CustomCellData in the Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#combining-customcelldata">Combining CustomCellData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#assign-customcelldata-via-gdscript">Assign CustomCellData via GDScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#final-scripts">Final Scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#run-the-game">10 - Run the game</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Antoine Charruel GDExtensions Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		Godot Engine 4.6 documentation in English
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">InteractiveGrid GDExtension</a></li>
+      <li class="breadcrumb-item active">Tutorial - InteractiveGrid3D</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/godotengine/godot-docs/blob/master/interactive-grid/tutorial-interactive-grid-3d.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://contributing.godotengine.org/en/latest/organization/how_to_contribute.html">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+  <div class="admonition-grid">
+    
+
+    
+  </div>
+  
+
+  
+  <section id="tutorial-interactivegrid3d">
+<h1>Tutorial - InteractiveGrid3D<a class="headerlink" href="#tutorial-interactivegrid3d" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#getting-started" id="id15">1 - Getting started</a></p></li>
+<li><p><a class="reference internal" href="#setting-up-the-playable-area" id="id16">2 - Setting up the playable area</a></p>
+<ul>
+<li><p><a class="reference internal" href="#create-the-root-node" id="id17">Create the root node</a></p></li>
+<li><p><a class="reference internal" href="#add-the-floor" id="id18">Add the floor</a></p></li>
+<li><p><a class="reference internal" href="#add-collision-to-the-floor" id="id19">Add collision to the floor</a></p></li>
+<li><p><a class="reference internal" href="#set-the-collision-layer-for-the-floor" id="id20">Set the collision layer for the floor</a></p></li>
+<li><p><a class="reference internal" href="#add-light" id="id21">Add light</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#setting-up-the-player-scene" id="id22">3 - Setting up the player scene</a></p>
+<ul>
+<li><p><a class="reference internal" href="#create-the-player-scene" id="id23">Create the player scene</a></p></li>
+<li><p><a class="reference internal" href="#add-the-player-body" id="id24">Add the player body</a></p></li>
+<li><p><a class="reference internal" href="#attach-a-collisionshape3d-to-the-player" id="id25">Attach a CollisionShape3D to the player</a></p></li>
+<li><p><a class="reference internal" href="#attach-a-camera3d-to-the-player" id="id26">Attach a Camera3D to the player</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#moving-the-player-with-code" id="id27">4 - Moving the player with code</a></p></li>
+<li><p><a class="reference internal" href="#raycast-from-mouse" id="id28">5 - Raycast from mouse</a></p>
+<ul>
+<li><p><a class="reference internal" href="#add-a-raycast3d-node" id="id29">Add a Raycast3D node</a></p></li>
+<li><p><a class="reference internal" href="#attach-the-script" id="id30">Attach the script</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#setting-up-the-interactive-grid" id="id31">6 - Setting up the interactive grid</a></p>
+<ul>
+<li><p><a class="reference internal" href="#add-interactivegrid3d" id="id32">Add InteractiveGrid3D</a></p></li>
+<li><p><a class="reference internal" href="#set-grid-size" id="id33">Set grid size</a></p></li>
+<li><p><a class="reference internal" href="#add-a-cell-size" id="id34">Add a cell Size</a></p></li>
+<li><p><a class="reference internal" href="#add-a-cell-mesh" id="id35">Add a cell Mesh</a></p></li>
+<li><p><a class="reference internal" href="#add-a-cell-shape" id="id36">Add a cell Shape</a></p></li>
+<li><p><a class="reference internal" href="#set-layout" id="id37">Set Layout</a></p></li>
+<li><p><a class="reference internal" href="#set-movement" id="id38">Set Movement</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#interactive-grid-scripting" id="id39">7 - Interactive grid scripting</a></p>
+<ul>
+<li><p><a class="reference internal" href="#attach-a-script" id="id40">Attach a script</a></p></li>
+<li><p><a class="reference internal" href="#input" id="id41">Input</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#setup-world-scene" id="id42">8 - Setup World Scene</a></p></li>
+<li><p><a class="reference internal" href="#add-custom-shader" id="id43">10 - Add custom Shader</a></p></li>
+<li><p><a class="reference internal" href="#add-custom-cell-data" id="id44">11 - Add custom cell data</a></p>
+<ul>
+<li><p><a class="reference internal" href="#example-adding-a-trap-that-interacts-with-the-grid" id="id45">Example: Adding a Trap That Interacts with the Grid</a></p></li>
+<li><p><a class="reference internal" href="#accessing-customcelldata-in-the-shader" id="id46">Accessing CustomCellData in the Shader</a></p></li>
+<li><p><a class="reference internal" href="#combining-customcelldata" id="id47">Combining CustomCellData</a></p></li>
+<li><p><a class="reference internal" href="#assign-customcelldata-via-gdscript" id="id48">Assign CustomCellData via GDScript</a></p></li>
+<li><p><a class="reference internal" href="#final-scripts" id="id49">Final Scripts</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#run-the-game" id="id50">10 - Run the game</a></p></li>
+</ul>
+</nav>
+<section id="getting-started">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">1 - Getting started</a><a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+<p>Launch Godot, create a new project, choose a location, and give it a name.</p>
+<a class="reference internal image-reference" href="../_images/create_new_project.png"><img alt="create_new_project.png" src="../_images/create_new_project.png" style="width: 400px;" />
+</a>
+<ul class="simple">
+<li><dl class="simple">
+<dt>In Godot, click AssetLib.</dt><dd><ul>
+<li><p>Search for <code class="docutils literal notranslate"><span class="pre">Interactive</span> <span class="pre">Grid</span> <span class="pre">GDExtension</span></code>.</p></li>
+<li><p>Download and install.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<a class="reference internal image-reference" href="../_images/ig_gde_asset_lib.png"><img alt="ig_gde_asset_lib.png" src="../_images/ig_gde_asset_lib.png" style="width: 300px;" />
+</a>
+</section>
+<section id="setting-up-the-playable-area">
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">2 - Setting up the playable area</a><a class="headerlink" href="#setting-up-the-playable-area" title="Link to this heading"></a></h2>
+<section id="create-the-root-node">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Create the root node</a><a class="headerlink" href="#create-the-root-node" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Click <strong>+</strong> and select <code class="docutils literal notranslate"><span class="pre">3D</span> <span class="pre">Scene</span></code>.</p></li>
+<li><p>Rename the root node <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_node3d.html">Node3D</a> -&gt; <code class="docutils literal notranslate"><span class="pre">&quot;World&quot;</span></code>.</p></li>
+</ul>
+</section>
+<section id="add-the-floor">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Add the floor</a><a class="headerlink" href="#add-the-floor" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">World</span></code>, click <strong>+</strong>, choose <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_meshinstance3d.html">MeshInstance3D</a>.</p></li>
+<li><p>Rename it <code class="docutils literal notranslate"><span class="pre">&quot;Floor&quot;</span></code>.</p></li>
+<li><p>In the <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_mesh.html">Mesh</a> property, select <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_planemesh.html">PlaneMesh</a>.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">Transform</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Scale</span></code> to <strong>20.0, 20.0, 20.0</strong>.</p></li>
+</ul>
+</section>
+<section id="add-collision-to-the-floor">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Add collision to the floor</a><a class="headerlink" href="#add-collision-to-the-floor" title="Link to this heading"></a></h3>
+<ul>
+<li><p>With <code class="docutils literal notranslate"><span class="pre">Floor</span></code> selected, click <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_mesh.html">Mesh</a> -&gt; <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">Collision</span> <span class="pre">Shape</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Collision Shape Placement: <code class="docutils literal notranslate"><span class="pre">Static</span> <span class="pre">Body</span> <span class="pre">Child</span></code>.</p></li>
+<li><p>Collision Shape Type: <code class="docutils literal notranslate"><span class="pre">Single</span> <span class="pre">Convex</span></code>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="set-the-collision-layer-for-the-floor">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Set the collision layer for the floor</a><a class="headerlink" href="#set-the-collision-layer-for-the-floor" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Select the <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_staticbody3d.html">StaticBody3D</a> node that was created for the <code class="docutils literal notranslate"><span class="pre">Floor</span></code>.</p></li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">Collision</span></code> Layer property, set it to 15.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Assign it to <code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Layer</span> <span class="pre">15</span></code>. This is important to ensure proper alignment of the grid on the <code class="docutils literal notranslate"><span class="pre">floor</span></code>.</p>
+</div>
+<a class="reference internal image-reference" href="../_images/floor_collision_layer.png"><img alt="floor_collision_layer.png" src="../_images/floor_collision_layer.png" style="width: 250px;" />
+</a>
+</section>
+<section id="add-light">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Add light</a><a class="headerlink" href="#add-light" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://docs.godotengine.org/en/stable/tutorials/3d/environment_and_post_processing.html#preview-environment-and-sun-low-priority">Preview environment</a>: If no WorldEnvironment node or DirectionalLight3D node is present in the current scene, the editor will display a preview environment and sun instead.
+This can be disabled using the buttons at the top of the 3D editor:</p>
+<a class="reference internal image-reference" href="../_images/environment_preview_sun_sky_toggle.png"><img alt="environment_preview_sun_sky_toggle.png" src="../_images/environment_preview_sun_sky_toggle.png" style="width: 250px;" />
+</a>
+<p>Clicking on the 3 vertical dots on the right will display a dialog which allows you to customize the appearance of the preview environment:</p>
+<ul class="simple">
+<li><p>Add a Sun.</p></li>
+<li><p>Add an <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_environment.html">Environment</a>.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/environment_preview_sun_sky_dialog.png"><img alt="environment_preview_sun_sky_dialog.png" src="../_images/environment_preview_sun_sky_dialog.png" style="width: 450px;" />
+</a>
+</section>
+</section>
+<section id="setting-up-the-player-scene">
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">3 - Setting up the player scene</a><a class="headerlink" href="#setting-up-the-player-scene" title="Link to this heading"></a></h2>
+<section id="create-the-player-scene">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">Create the player scene</a><a class="headerlink" href="#create-the-player-scene" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>New scene, Select 3D Scene.</p></li>
+<li><p>Select <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_node3d.html">Node3D</a>.</p></li>
+<li><p>Rename it <code class="docutils literal notranslate"><span class="pre">&quot;PlayerPawn&quot;</span></code>.</p></li>
+</ul>
+</section>
+<section id="add-the-player-body">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">Add the player body</a><a class="headerlink" href="#add-the-player-body" title="Link to this heading"></a></h3>
+<ul>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">&quot;PawnPlayer&quot;</span></code> <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_node3d.html">Node3D</a>., click +, choose <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_characterbody3d.html">CharacterBody3D</a>.</p></li>
+<li><p>Rename it <code class="docutils literal notranslate"><span class="pre">&quot;Pawn&quot;</span></code>.</p></li>
+<li><p>Add a visual <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_mesh.html">mesh</a>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>With <code class="docutils literal notranslate"><span class="pre">Pawn</span></code> selected, click +, choose <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_meshinstance3d.html">MeshInstance3D</a>.</p></li>
+<li><p>In the Mesh property, select <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_capsuleshape3d3d.html">CapsuleShape3D</a>.</p></li>
+<li><p>Hold the Control key and move the <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_capsuleshape3d3d.html">CapsuleShape3D</a>. up.</p></li>
+<li><p>Rename it &quot;Model&quot;.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="attach-a-collisionshape3d-to-the-player">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">Attach a CollisionShape3D to the player</a><a class="headerlink" href="#attach-a-collisionshape3d-to-the-player" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">Pawn</span></code> node, click +, and add a <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_colissionshape3d.html">ColissionShape3D</a>.</p></li>
+<li><p>In the Mesh property, select <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_capsuleshape3d3d.html">CapsuleShape3D</a>.</p></li>
+<li><p>Hold the Control key and move the <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_capsuleshape3d3d.html">CapsuleShape3D</a> up.</p></li>
+</ul>
+</section>
+<section id="attach-a-camera3d-to-the-player">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">Attach a Camera3D to the player</a><a class="headerlink" href="#attach-a-camera3d-to-the-player" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">Pawn</span></code> node, click +, and add a <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_camera3d.html">Camera3D</a> node.</p></li>
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">Transform</span></code> → <strong>Position</strong> to <strong>6.0</strong>, <strong>10.0</strong>, <strong>6.0</strong>.</p></li>
+<li><p>Set <strong>FOV</strong> to <strong>60.0°</strong> .</p></li>
+<li><p>Set <strong>Rotation</strong> <strong>X</strong> to <strong>-45.0°</strong> and Rotation <strong>Y</strong> to <strong>45.0°</strong>.</p></li>
+</ul>
+</section>
+</section>
+<section id="moving-the-player-with-code">
+<h2><a class="toc-backref" href="#id27" role="doc-backlink">4 - Moving the player with code</a><a class="headerlink" href="#moving-the-player-with-code" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">&quot;Pawn&quot;</span></code>, then attach <em>&quot;pawn.gd&quot;</em> script to the player.</p></li>
+</ul>
+<p>Script that allows moving the player from point A to point B in the world.</p>
+<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="c1"># pawn.gd</span>
+
+<span class="k">extends</span><span class="w"> </span><span class="nb">CharacterBody3D</span>
+
+<span class="nd">@onready</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">model</span><span class="p">:</span><span class="w"> </span><span class="nb">MeshInstance3D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sx">$Model</span>
+<span class="nd">@onready</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">interactive_grid_3d</span><span class="p">:</span><span class="w"> </span><span class="n">InteractiveGrid3D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sx">$&quot;../InteractiveGrid3D&quot;</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">SPEED</span><span class="p">:</span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span>
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">_physics_process</span><span class="p">(</span><span class="n">delta</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">   </span><span class="c1"># Add the gravity.</span>
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nf">is_on_floor</span><span class="p">():</span>
+<span class="w">      </span><span class="n">velocity</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nf">get_gravity</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">delta</span>
+<span class="w">      </span><span class="nf">move_and_slide</span><span class="p">()</span>
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">move_to</span><span class="p">(</span><span class="n">global_position</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="p">)</span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">pawn_global_position</span><span class="p">:</span><span class="nb nb-Type">Vector3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="vi">global_position</span>
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">target_global_position</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="p">(</span><span class="n">global_position</span><span class="o">.</span><span class="vi">x</span><span class="p">,</span><span class="w"> </span><span class="n">pawn_global_position</span><span class="o">.</span><span class="vi">y</span><span class="p">,</span><span class="w"> </span><span class="n">global_position</span><span class="o">.</span><span class="vi">z</span><span class="p">)</span>
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">direction</span><span class="p">:</span><span class="nb nb-Type">Vector3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">target_global_position</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">pawn_global_position</span><span class="p">)</span><span class="o">.</span><span class="nf">normalized</span><span class="p">()</span>
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">distance_to_target</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pawn_global_position</span><span class="o">.</span><span class="nf">distance_to</span><span class="p">(</span><span class="n">target_global_position</span><span class="p">)</span>
+
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="vi">velocity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SPEED</span>
+
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">target_global_position</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">model</span><span class="o">.</span><span class="vi">global_position</span><span class="p">)</span>
+<span class="w">   </span><span class="n">dir</span><span class="o">.</span><span class="vi">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">   </span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dir</span><span class="o">.</span><span class="nf">normalized</span><span class="p">()</span>
+
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">target_rot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb nb-Function">atan2</span><span class="p">(</span><span class="o">-</span><span class="n">dir</span><span class="o">.</span><span class="vi">x</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">dir</span><span class="o">.</span><span class="vi">z</span><span class="p">)</span>
+<span class="w">   </span><span class="n">model</span><span class="o">.</span><span class="vi">rotation</span><span class="o">.</span><span class="vi">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb nb-Function">lerp_angle</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="vi">rotation</span><span class="o">.</span><span class="vi">y</span><span class="p">,</span><span class="w"> </span><span class="n">target_rot</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="w">   </span><span class="nf">move_and_slide</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="raycast-from-mouse">
+<h2><a class="toc-backref" href="#id28" role="doc-backlink">5 - Raycast from mouse</a><a class="headerlink" href="#raycast-from-mouse" title="Link to this heading"></a></h2>
+<section id="add-a-raycast3d-node">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">Add a Raycast3D node</a><a class="headerlink" href="#add-a-raycast3d-node" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">PawnPlayer</span></code>.</p></li>
+<li><p>Click <strong>+</strong> and add a <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_raycast3d.html">Raycast3D</a> node.</p></li>
+<li><p>Rename it <em>“RayCastFromMouse”</em>.</p></li>
+</ul>
+</section>
+<section id="attach-the-script">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">Attach the script</a><a class="headerlink" href="#attach-the-script" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Select RayCastFromMouse.</p></li>
+<li><p>Click on the Attach Script icon and fill it.</p></li>
+</ul>
+<p>This script allows you to send a raycast from the mouse to get the world coordinates.
+It will be useful for selecting a cell on the grid.</p>
+<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="c1"># ray_cast_from_mouse.gd</span>
+
+<span class="k">extends</span><span class="w"> </span><span class="nb">RayCast3D</span>
+
+<span class="nd">@onready</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">camera_3d</span><span class="p">:</span><span class="w"> </span><span class="nb">Camera3D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sx">$&quot;../Pawn/Camera3D&quot;</span>
+<span class="nd">@export</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">debug_sphere_raycast</span><span class="p">:</span><span class="w"> </span><span class="nb">MeshInstance3D</span>
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">_ready</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">   </span><span class="n">debug_sphere_raycast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">MeshInstance3D</span><span class="o">.</span><span class="nf">new</span><span class="p">()</span>
+<span class="w">   </span><span class="n">debug_sphere_raycast</span><span class="o">.</span><span class="vi">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">SphereMesh</span><span class="o">.</span><span class="nf">new</span><span class="p">()</span>
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">mat_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">StandardMaterial3D</span><span class="o">.</span><span class="nf">new</span><span class="p">()</span>
+<span class="w">   </span><span class="n">mat_target</span><span class="o">.</span><span class="vi">albedo_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb nb-Type">Color</span><span class="o">.</span><span class="vi">GREEN</span>
+<span class="w">   </span><span class="n">debug_sphere_raycast</span><span class="o">.</span><span class="vi">material_override</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mat_target</span>
+<span class="w">   </span><span class="n">debug_sphere_raycast</span><span class="o">.</span><span class="vi">scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">)</span>
+<span class="w">   </span><span class="nf">add_child</span><span class="p">(</span><span class="n">debug_sphere_raycast</span><span class="p">)</span>
+<span class="w">   </span><span class="n">debug_sphere_raycast</span><span class="o">.</span><span class="vi">visible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="l">false</span>
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">_process</span><span class="p">(</span><span class="n">delta</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">   </span><span class="n">debug_sphere_raycast</span><span class="o">.</span><span class="vi">global_transform</span><span class="o">.</span><span class="vi">origin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get_ray_intersection_position</span><span class="p">()</span>
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">get_ray_intersection_position</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="p">:</span>
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">intersect_ray_position</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="o">.</span><span class="vi">ZERO</span>
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">mouse_pos</span><span class="p">:</span><span class="nb nb-Type">Vector2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get_viewport</span><span class="p">()</span><span class="o">.</span><span class="nf">get_mouse_position</span><span class="p">()</span>
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">ray_origin</span><span class="p">:</span><span class="nb nb-Type">Vector3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">camera_3d</span><span class="o">.</span><span class="nf">project_ray_origin</span><span class="p">(</span><span class="n">mouse_pos</span><span class="p">)</span>
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">ray_direction</span><span class="p">:</span><span class="nb nb-Type">Vector3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">camera_3d</span><span class="o">.</span><span class="nf">project_ray_normal</span><span class="p">(</span><span class="n">mouse_pos</span><span class="p">)</span>
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">ray_length</span><span class="p">:</span><span class="nb nb-Type">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2000</span>
+
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="vi">global_position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ray_origin</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="vi">target_position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ray_direction</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ray_length</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="vi">collide_with_areas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="l">false</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="vi">collision_mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">set_collision_mask_value</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="l">true</span><span class="p">)</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">set_collision_mask_value</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="l">false</span><span class="p">)</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">force_raycast_update</span><span class="p">()</span>
+
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">is_colliding</span><span class="p">():</span>
+<span class="w">      </span><span class="k">var</span><span class="w"> </span><span class="n">collider</span><span class="p">:</span><span class="nb">Node3D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_collider</span><span class="p">()</span>
+
+<span class="w">      </span><span class="n">intersect_ray_position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_collision_point</span><span class="p">()</span>
+<span class="w">      </span><span class="nb nb-Function">print</span><span class="p">(</span><span class="s2">&quot;[get_ray_intersection_position] Collision detected at: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">intersect_ray_position</span><span class="p">)</span>
+<span class="w">      </span><span class="nb nb-Function">print</span><span class="p">(</span><span class="s2">&quot;[get_ray_intersection_position] Collision detected with: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">collider</span><span class="o">.</span><span class="vi">name</span><span class="p">)</span>
+
+<span class="w">   </span><span class="k k-ControlFlow">return</span><span class="w"> </span><span class="n">intersect_ray_position</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="setting-up-the-interactive-grid">
+<h2><a class="toc-backref" href="#id31" role="doc-backlink">6 - Setting up the interactive grid</a><a class="headerlink" href="#setting-up-the-interactive-grid" title="Link to this heading"></a></h2>
+<section id="add-interactivegrid3d">
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">Add InteractiveGrid3D</a><a class="headerlink" href="#add-interactivegrid3d" title="Link to this heading"></a></h3>
+<p>Select <code class="docutils literal notranslate"><span class="pre">PlayerPawn</span></code>, click <strong>+</strong>, and add a <code class="docutils literal notranslate"><span class="pre">InteractiveGrid3D</span></code> node.</p>
+</section>
+<section id="set-grid-size">
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">Set grid size</a><a class="headerlink" href="#set-grid-size" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Rows</span></code>: <strong>13</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Columns</span></code>: <strong>13</strong></p></li>
+</ul>
+</section>
+<section id="add-a-cell-size">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">Add a cell Size</a><a class="headerlink" href="#add-a-cell-size" title="Link to this heading"></a></h3>
+<p><strong>Which dimensions should we choose?</strong></p>
+<p>Pour <code class="docutils literal notranslate"><span class="pre">cell_size.x</span></code> = <strong>1.0</strong></p>
+<p>&quot;The size of a regular hexagon can be described by either the inner circle, touching the edges, or the outer circle, touching the corners.&quot;
+<a class="reference external" href="https://www.redblobgames.com/grids/hexagons/#basics">Hexagonal Grids Basics</a></p>
+<p>We know that the vertical distance = √3 * inradius.</p>
+<p><strong>Finding the inradius (r):</strong></p>
+<p>We know that <code class="docutils literal notranslate"><span class="pre">cell_size.x</span></code> = 2 * inradius.</p>
+<ul class="simple">
+<li><p>inradius = <code class="docutils literal notranslate"><span class="pre">cell_size.x</span></code> / 2</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell_size.y</span></code> = √3 * inradius.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell_size.y</span></code> = <strong>0.866</strong></p></li>
+</ul>
+</section>
+<section id="add-a-cell-mesh">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">Add a cell Mesh</a><a class="headerlink" href="#add-a-cell-mesh" title="Link to this heading"></a></h3>
+<p>Select <code class="docutils literal notranslate"><span class="pre">InteractiveGrid3D</span></code>, go to the Inspector -&gt; <code class="docutils literal notranslate"><span class="pre">Cell</span> <span class="pre">Mesh</span> <span class="pre">property</span></code>.
+Click on the mesh field and select <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_cylindermesh.html">CylinderMesh</a>.</p>
+<p><strong>Which dimensions should we choose?</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Top_radius</span></code> = Circumradius (R)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Bottom_radius</span></code> = Circumradius (R)</p></li>
+</ul>
+<p><strong>Finding the Circumradius (R):</strong></p>
+<p>We know that:</p>
+<ul class="simple">
+<li><p>inradius (r) = a · √3 / 2 = 0.5</p></li>
+<li><p>side length (a) = r * 2 / √3 = 0.577</p></li>
+<li><p>circumradius (R) = a = 0.577</p></li>
+</ul>
+<p>Therefore:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Top_radius</span></code> = a = <strong>0.577</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Bottom_radius</span></code> = a = <strong>0.577</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Height</span></code> = <strong>0.1</strong></p></li>
+</ul>
+<p>Pour creer un hexagonal:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Radial</span> <span class="pre">Segments:</span></code> <strong>6</strong></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="add-a-cell-shape">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">Add a cell Shape</a><a class="headerlink" href="#add-a-cell-shape" title="Link to this heading"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Cell</span> <span class="pre">Shape</span> <span class="pre">property</span></code>.</p></li>
+<li><p>Click on the mesh field and select <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_cylindershape3d.html">CylinderShape3D</a>.</p></li>
+</ul>
+</div></blockquote>
+<p>We choose a cylinder with the same top and bottom radius as the mesh, but a different height:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Height</span></code> = <strong>6</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Top_radius</span></code> = inradius = <code class="docutils literal notranslate"><span class="pre">cell_size.x</span></code> / 2 = <strong>0.5</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Bottom_radius</span></code> = <strong>0.5</strong></p></li>
+</ul>
+<p>Dans <code class="docutils literal notranslate"><span class="pre">cell_shape_offset.y</span></code> mettre <strong>Height/2</strong> = <strong>3.0</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Add a debug collision shape and include these lines in the script
+<em>interactive_grid.gd</em> inside the <em>show_grid()</em> function, and enable <code class="docutils literal notranslate"><span class="pre">Visible</span> <span class="pre">Collision</span> <span class="pre">Shape</span></code>
+in the <code class="docutils literal notranslate"><span class="pre">Debug</span> <span class="pre">tab</span></code> of the editor.</p>
+<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="k">var</span><span class="w"> </span><span class="n">cell_position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get_cell_global_position</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">)</span>
+<span class="w">     </span><span class="n">debug_collision_shape_area_3d</span><span class="o">.</span><span class="vi">global_position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cell_position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">get_cell_shape_offset</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Multiply all values by two to double the size of the grid cells.</p>
+<a class="reference internal image-reference" href="../_images/interactive_grid.png"><img alt="interactive_grid.png" src="../_images/interactive_grid.png" style="width: 600px;" />
+</a>
+</section>
+<section id="set-layout">
+<h3><a class="toc-backref" href="#id37" role="doc-backlink">Set Layout</a><a class="headerlink" href="#set-layout" title="Link to this heading"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Layout</span> <span class="pre">property</span></code>.</p></li>
+<li><p>Click on the dropdown menu and select <code class="docutils literal notranslate"><span class="pre">HEXAGONAL</span></code>.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="set-movement">
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">Set Movement</a><a class="headerlink" href="#set-movement" title="Link to this heading"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Movement</span> <span class="pre">property</span></code>.</p></li>
+<li><p>Click on the dropdown menu and select <code class="docutils literal notranslate"><span class="pre">SIX-DIRECTIONS</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<a class="reference internal image-reference" href="../_images/player_pawn_nodes.png"><img alt="player_pawn_nodes.png" src="../_images/player_pawn_nodes.png" style="width: 400px;" />
+</a>
+</section>
+</section>
+<section id="interactive-grid-scripting">
+<h2><a class="toc-backref" href="#id39" role="doc-backlink">7 - Interactive grid scripting</a><a class="headerlink" href="#interactive-grid-scripting" title="Link to this heading"></a></h2>
+<section id="attach-a-script">
+<h3><a class="toc-backref" href="#id40" role="doc-backlink">Attach a script</a><a class="headerlink" href="#attach-a-script" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Select the InteractiveGrid3D node.</p></li>
+<li><p>Click Attach Script.</p></li>
+<li><p>Fill in the script.</p></li>
+</ul>
+<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="c1"># interactive_grid_3d.gd</span>
+
+<span class="k">extends</span><span class="w"> </span><span class="n">InteractiveGrid3D</span>
+
+<span class="nd">@onready</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">ray_cast_from_mouse</span><span class="p">:</span><span class="w"> </span><span class="nb">RayCast3D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sx">$&quot;../RayCastFromMouse&quot;</span>
+
+<span class="k">var</span><span class="w"> </span><span class="n">_path</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">PackedInt64Array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+<span class="k">var</span><span class="w"> </span><span class="n">_pawn</span><span class="p">:</span><span class="w"> </span><span class="nb">CharacterBody3D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="l">null</span>
+
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">_ready</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">   </span><span class="k k-ControlFlow">pass</span>
+
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">_process</span><span class="p">(</span><span class="n">delta</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">_pawn</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="l">null</span><span class="p">:</span>
+<span class="w">      </span><span class="k k-ControlFlow">return</span>
+
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_selected_cells</span><span class="p">()</span><span class="o">.</span><span class="nf">is_empty</span><span class="p">():</span>
+<span class="w">      </span><span class="bp">self</span><span class="o">.</span><span class="nf">highlight_on_hover</span><span class="p">(</span><span class="n">ray_cast_from_mouse</span><span class="o">.</span><span class="nf">get_ray_intersection_position</span><span class="p">())</span>
+<span class="w">   </span><span class="k k-ControlFlow">else</span><span class="p">:</span>
+<span class="w">      </span><span class="nf">move_along_path</span><span class="p">(</span><span class="n">_path</span><span class="p">)</span>
+
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">show_grid</span><span class="p">():</span>
+<span class="w">   </span><span class="c c-Region">#region InteractiveGrid3D Center</span>
+<span class="w">   </span><span class="c c-Doc">## Here, the grid is centered around the player.</span>
+<span class="w">   </span><span class="c c-Doc">## !Note: This operation repositions all cells, aligns them with the environment,</span>
+<span class="w">   </span><span class="c c-Doc">## rescans obstacles and custom data, and refreshes A* navigation.</span>
+<span class="w">   </span><span class="c c-Doc">##  - Manual modifications can also be applied here, such as:</span>
+<span class="w">   </span><span class="c c-Doc">##     - Hiding cells beyond a certain distance</span>
+<span class="w">   </span><span class="c c-Doc">##     - compute_unreachable_cells</span>
+<span class="w">   </span><span class="c c-Doc">##     - Adding custom data</span>
+<span class="w">   </span><span class="c c-Region">#endregion</span>
+
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">_pawn</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="l">null</span><span class="p">:</span>
+<span class="w">      </span><span class="k k-ControlFlow">return</span>
+
+<span class="w">   </span><span class="nb nb-Function">print</span><span class="p">(</span><span class="s2">&quot;show_grid&quot;</span><span class="p">)</span>
+
+<span class="w">   </span><span class="n">_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">set_visible</span><span class="p">(</span><span class="l">true</span><span class="p">)</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">center</span><span class="p">(</span><span class="n">_pawn</span><span class="o">.</span><span class="vi">global_position</span><span class="p">)</span>
+
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">pawn_current_cell_index</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_cell_index_from_global_position</span><span class="p">(</span><span class="n">_pawn</span><span class="o">.</span><span class="vi">global_position</span><span class="p">)</span>
+
+<span class="w">   </span><span class="c1"># To prevent the player from getting stuck.</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">set_cell_walkable</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">,</span><span class="w"> </span><span class="l">true</span><span class="p">)</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">set_cell_reachable</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">,</span><span class="w"> </span><span class="l">true</span><span class="p">)</span>
+
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">hide_distant_cells</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">compute_unreachable_cells</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">)</span>
+
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">_input</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="ow">is</span><span class="w"> </span><span class="nb">InputEventMouseButton</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">event</span><span class="o">.</span><span class="vi">button_index</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">MOUSE_BUTTON_LEFT</span><span class="p">:</span>
+<span class="w">      </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">_pawn</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="l">null</span><span class="p">:</span>
+<span class="w">         </span><span class="k k-ControlFlow">return</span>
+
+<span class="w">      </span><span class="k">var</span><span class="w"> </span><span class="n">ray_pos</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ray_cast_from_mouse</span><span class="o">.</span><span class="nf">get_ray_intersection_position</span><span class="p">()</span>
+<span class="w">      </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">ray_pos</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="l">null</span><span class="p">:</span>
+<span class="w">         </span><span class="k k-ControlFlow">return</span>
+
+<span class="w">      </span><span class="k">var</span><span class="w"> </span><span class="n">selected_cells</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_selected_cells</span><span class="p">()</span>
+<span class="w">      </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">selected_cells</span><span class="o">.</span><span class="nf">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span>
+<span class="w">         </span><span class="k">var</span><span class="w"> </span><span class="n">hit_cell_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_cell_index_from_global_position</span><span class="p">(</span><span class="n">ray_pos</span><span class="p">)</span>
+<span class="w">         </span><span class="bp">self</span><span class="o">.</span><span class="nf">select_cell</span><span class="p">(</span><span class="n">hit_cell_index</span><span class="p">)</span>
+<span class="w">         </span><span class="n">selected_cells</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_selected_cells</span><span class="p">()</span>
+<span class="w">         </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">selected_cells</span><span class="o">.</span><span class="nf">is_empty</span><span class="p">():</span>
+<span class="w">            </span><span class="k k-ControlFlow">return</span>
+
+<span class="w">         </span><span class="k">var</span><span class="w"> </span><span class="n">pawn_current_cell_index</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_cell_index_from_global_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="nf">get_grid_center_global_position</span><span class="p">())</span>
+<span class="w">         </span><span class="bp">self</span><span class="o">.</span><span class="nf">set_cell_walkable</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">,</span><span class="w"> </span><span class="l">true</span><span class="p">)</span>
+<span class="w">         </span><span class="n">_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_path</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">,</span><span class="w"> </span><span class="n">selected_cells</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="w">         </span><span class="nb nb-Function">print</span><span class="p">(</span><span class="s2">&quot;Last selected cell:&quot;</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_latest_selected</span><span class="p">())</span>
+<span class="w">         </span><span class="nb nb-Function">print</span><span class="p">(</span><span class="s2">&quot;Path:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">_path</span><span class="p">)</span>
+<span class="w">         </span><span class="bp">self</span><span class="o">.</span><span class="nf">highlight_path</span><span class="p">(</span><span class="n">_path</span><span class="p">)</span>
+
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">move_along_path</span><span class="p">(</span><span class="n">path</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">PackedInt64Array</span><span class="p">)</span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">path</span><span class="o">.</span><span class="nf">is_empty</span><span class="p">():</span>
+<span class="w">      </span><span class="nf">show_grid</span><span class="p">()</span>
+<span class="w">      </span><span class="k k-ControlFlow">return</span>
+
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">target_cell_index</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">target_global_position</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get_cell_global_position</span><span class="p">(</span><span class="n">target_cell_index</span><span class="p">)</span>
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nf">is_on_target_cell</span><span class="p">(</span><span class="n">_pawn</span><span class="o">.</span><span class="vi">global_position</span><span class="p">,</span><span class="w"> </span><span class="n">target_global_position</span><span class="p">,</span><span class="w"> </span><span class="mf">0.20</span><span class="p">):</span>
+<span class="w">      </span><span class="nf">reaching_cell_target</span><span class="p">(</span><span class="n">target_cell_index</span><span class="p">,</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
+<span class="w">   </span><span class="k k-ControlFlow">else</span><span class="p">:</span>
+<span class="w">      </span><span class="nf">target_cell_reached</span><span class="p">()</span>
+
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">reaching_cell_target</span><span class="p">(</span><span class="n">target_cell_index</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="n">path</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">PackedInt64Array</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">_path</span><span class="o">.</span><span class="nf">size</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
+<span class="w">      </span><span class="k">var</span><span class="w"> </span><span class="n">target_cell_global_position</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_cell_global_position</span><span class="p">(</span><span class="n">target_cell_index</span><span class="p">)</span>
+<span class="w">      </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">_pawn</span><span class="o">.</span><span class="nf">has_method</span><span class="p">(</span><span class="s2">&quot;move_to&quot;</span><span class="p">):</span>
+<span class="w">         </span><span class="n">_pawn</span><span class="o">.</span><span class="nf">move_to</span><span class="p">(</span><span class="n">target_cell_global_position</span><span class="p">)</span>
+<span class="w">      </span><span class="k k-ControlFlow">else</span><span class="p">:</span>
+<span class="w">         </span><span class="nb nb-Function">printerr</span><span class="p">(</span><span class="s2">&quot;pawn does not have the &#39;move_to&#39; method.&quot;</span><span class="p">)</span>
+
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">target_cell_reached</span><span class="p">():</span>
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">_path</span><span class="o">.</span><span class="nf">is_empty</span><span class="p">():</span>
+<span class="w">      </span><span class="n">_path</span><span class="o">.</span><span class="nf">remove_at</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+
+<span class="k">static</span><span class="w"> </span><span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">is_on_target_cell</span><span class="p">(</span><span class="n">current_global_position</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="p">,</span><span class="w"> </span><span class="n">target_global_position</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="p">,</span><span class="w"> </span><span class="n">threshold</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">bool</span><span class="p">:</span>
+<span class="w">   </span><span class="k k-ControlFlow">return</span><span class="w"> </span><span class="n">current_global_position</span><span class="o">.</span><span class="nf">distance_to</span><span class="p">(</span><span class="n">target_global_position</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">threshold</span>
+
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">set_pawn</span><span class="p">(</span><span class="n">pawn</span><span class="p">:</span><span class="w"> </span><span class="nb">CharacterBody3D</span><span class="p">):</span>
+<span class="w">   </span><span class="n">_pawn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pawn</span>
+</pre></div>
+</div>
+</section>
+<section id="input">
+<h3><a class="toc-backref" href="#id41" role="doc-backlink">Input</a><a class="headerlink" href="#input" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Add an input action to allow opening the grid using the <code class="docutils literal notranslate"><span class="pre">Space</span> <span class="pre">key</span></code>.</p></li>
+<li><p>Go to <strong>Project → Project Settings →</strong> <code class="docutils literal notranslate"><span class="pre">Input</span> <span class="pre">Map</span></code> tab.</p></li>
+<li><p>Click <strong>Add New Action</strong>.</p></li>
+<li><p>Enter <strong>&quot;show_grid&quot;</strong>.</p></li>
+<li><p>Click <strong>Add</strong>.</p></li>
+<li><p>Click the <strong>`+`</strong> button next to the action.</p></li>
+<li><p>Assign the <code class="docutils literal notranslate"><span class="pre">Space</span> <span class="pre">key</span></code> as the input.</p></li>
+</ul>
+<p>Add the following code block at the end of the <em>pawn.gd</em> script:</p>
+<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">_input</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">event</span><span class="o">.</span><span class="nf">is_action_pressed</span><span class="p">(</span><span class="s2">&quot;show_grid&quot;</span><span class="p">):</span>
+<span class="w">      </span><span class="n">interactive_grid_3d</span><span class="o">.</span><span class="nf">set_pawn</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="w">      </span><span class="n">interactive_grid_3d</span><span class="o">.</span><span class="nf">show_grid</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="setup-world-scene">
+<h2><a class="toc-backref" href="#id42" role="doc-backlink">8 - Setup World Scene</a><a class="headerlink" href="#setup-world-scene" title="Link to this heading"></a></h2>
+<p>Add the Player Pawn scene to the World scene.</p>
+<ul>
+<li><p><strong>Create a wall.</strong></p>
+<ul class="simple">
+<li><p><strong>Add a parent Node for the walls.</strong></p>
+<ul>
+<li><p>Click <strong>+</strong>, select <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_node3d.html">Node3D</a>.</p></li>
+<li><p>Rename it <code class="docutils literal notranslate"><span class="pre">&quot;Walls&quot;</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>Add the wall mesh.</strong></p>
+<ul>
+<li><p>Select Walls, click <strong>+</strong>, choose <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_meshinstance3d.html">MeshInstance3D</a>.</p></li>
+<li><p>Set Transform -&gt; Scale to <strong>3.0, 3.0, 0.5.</strong></p></li>
+</ul>
+</li>
+<li><p><strong>Add collision.</strong></p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Shape</span></code> Type to <code class="docutils literal notranslate"><span class="pre">Single</span> <span class="pre">Convex</span></code>.</p></li>
+<li><p>Assign the <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_staticbody3d.html">StaticBody3D</a> to <code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Layer</span> <span class="pre">14</span></code>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Assign it to <code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Layer</span> <span class="pre">14</span></code>. This is important to ensure that the grid correctly detects obstacles.</p>
+</div>
+</section>
+<section id="add-custom-shader">
+<h2><a class="toc-backref" href="#id43" role="doc-backlink">10 - Add custom Shader</a><a class="headerlink" href="#add-custom-shader" title="Link to this heading"></a></h2>
+<p>It is possible to add a custom shader to the grid.</p>
+<p>Each grid cell has states stored in a bitmask. The flags can be retrieved via the alpha channel of <code class="docutils literal notranslate"><span class="pre">INSTANCE_CUSTOM</span></code>.</p>
+<p><strong>Example of retrieving default flags:</strong></p>
+<div class="highlight-gdshader notranslate"><div class="highlight"><pre><span></span>// Default cell flags:
+const int CFL_WALKABLE = 1 &lt;&lt; 0;
+const int CFL_REACHABLE = 1 &lt;&lt; 1;
+const int CFL_IN_VOID = 1 &lt;&lt; 2;
+const int CFL_HOVERED = 1 &lt;&lt; 3;
+const int CFL_SELECTED  = 1 &lt;&lt; 4;
+const int CFL_PATH = 1 &lt;&lt; 5;
+const int CFL_VISIBLE = 1 &lt;&lt; 6;
+
+void vertex() {
+ instance_c = INSTANCE_CUSTOM;
+ int cell_flag = int(instance_c.a);
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Click on InteractiveGrid3D → <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_shadermaterial.html">ShaderMaterial</a>.</p></li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">Shader</span></code> field, click New Shader.</p></li>
+<li><p>Name it <em>interactive_grid.gdshader</em>.</p></li>
+</ul>
+<p><strong>Example shader script:</strong></p>
+<div class="highlight-gdshader notranslate"><div class="highlight"><pre><span></span>// interractive_grid.gdshader
+
+shader_type spatial;
+render_mode unshaded, cull_disabled, depth_draw_opaque;
+
+varying vec4 instance_c;
+varying vec4 instance_c_default;
+varying float alpha;
+
+// Default cell flags:
+const int CFL_WALKABLE = 1 &lt;&lt; 0;
+const int CFL_REACHABLE = 1 &lt;&lt; 1;
+const int CFL_IN_VOID = 1 &lt;&lt; 2;
+const int CFL_HOVERED = 1 &lt;&lt; 3;
+const int CFL_SELECTED  = 1 &lt;&lt; 4;
+const int CFL_PATH = 1 &lt;&lt; 5;
+const int CFL_VISIBLE = 1 &lt;&lt; 6;
+
+void vertex() {
+   instance_c = INSTANCE_CUSTOM;
+   int cell_flag = int(instance_c.a);
+   alpha = 0.5;
+
+   if ((cell_flag &amp; CFL_WALKABLE) == 0) {
+      alpha = 0.20;
+   }
+
+   if ((cell_flag &amp; CFL_PATH) != 0) {
+      VERTEX.y += sin(TIME * 4.0 + VERTEX.x * 2.0) * 0.2;
+   }
+
+   if ((cell_flag &amp; CFL_HOVERED) != 0) {
+      VERTEX.y += sin(TIME * 4.0) * 0.2;
+   }
+
+   if ((cell_flag &amp; CFL_VISIBLE) == 0) {
+      alpha = 0.0; // invisible
+   }
+
+   if ((cell_flag &amp; CFL_REACHABLE) == 0) {
+      alpha = 0.0; // invisible
+   }
+
+   if ((cell_flag &amp; CFL_IN_VOID) != 0) {
+      alpha = 0.0; // invisible
+   }
+}
+
+void fragment() {
+   if (alpha == 0.0) {
+      discard; // ne pas dessiner les cellules non atteignables
+   }
+   ALBEDO = instance_c.rgb;
+   EMISSION = instance_c.rgb;
+   ALPHA = alpha;
+}
+</pre></div>
+</div>
+</section>
+<section id="add-custom-cell-data">
+<h2><a class="toc-backref" href="#id44" role="doc-backlink">11 - Add custom cell data</a><a class="headerlink" href="#add-custom-cell-data" title="Link to this heading"></a></h2>
+<p>It is also possible to add additional states to specific cells, on top of the default cell states.</p>
+<p>There are two ways to achieve this:</p>
+<ul class="simple">
+<li><p>Add a CustomCellData using a collision mask.</p></li>
+<li><p>Add a CustomCellData via code to a specific cell.</p></li>
+</ul>
+<section id="example-adding-a-trap-that-interacts-with-the-grid">
+<h3><a class="toc-backref" href="#id45" role="doc-backlink">Example: Adding a Trap That Interacts with the Grid</a><a class="headerlink" href="#example-adding-a-trap-that-interacts-with-the-grid" title="Link to this heading"></a></h3>
+<p>Let’s imagine you want to add a trap to your world and make it interact with the grid.</p>
+<ul>
+<li><p>Trap setup in the World scene.</p>
+<blockquote>
+<div><ul>
+<li><p>Select the World scene.</p></li>
+<li><p>Add a <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_meshinstance3d.html">MeshInstance3D</a>.</p></li>
+<li><p>Assign a <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_torusmesh.html">TorusMesh</a>. to it.</p></li>
+<li><p>Rename the node to <cite>BearTrap</cite>.</p></li>
+<li><p>Add a <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_staticbody3d.html">StaticBody3D</a> as a child with a <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_collisionshape3d.html">CollisionShape3D</a> set to Single Convex.</p></li>
+<li><p>Place the trap between the two walls.</p></li>
+<li><p>Select the <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_staticbody3d.html">StaticBody3D</a>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Set its Collision Layer to <strong>9</strong>.</p></li>
+<li><p>Disable Collision Layer <strong>1</strong> to prevent collisions with the player.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Configure CustomCellData on the grid</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">InteractiveGrid3D</span></code>.</p></li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">CustomCellData</span></code> field, click Add Element.</p></li>
+<li><p>Create a new <code class="docutils literal notranslate"><span class="pre">CustomCellData</span></code> entry.</p></li>
+<li><p>Set the Name to <code class="docutils literal notranslate"><span class="pre">CFL_TRAP</span></code>.</p></li>
+<li><p>Set the Layer Mask to <strong>11</strong> only.</p></li>
+<li><p>Set the Collision Layer to <strong>11</strong> (the same layer as the trap).</p></li>
+<li><p>Enable Use Custom Color and choose an orange color: #ff5d44.</p></li>
+</ul>
+<p>When you run the game, the grid cells corresponding to the trap will be displayed in orange.</p>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="accessing-customcelldata-in-the-shader">
+<h3><a class="toc-backref" href="#id46" role="doc-backlink">Accessing CustomCellData in the Shader</a><a class="headerlink" href="#accessing-customcelldata-in-the-shader" title="Link to this heading"></a></h3>
+<p>You can also retrieve the <code class="docutils literal notranslate"><span class="pre">CustomCellData</span></code> inside your <code class="docutils literal notranslate"><span class="pre">shader</span></code> and use it to modify the affected cells.</p>
+<p>First, define the flag constant:</p>
+<div class="highlight-gdshader notranslate"><div class="highlight"><pre><span></span>const int CFL_TRAP = 1 &lt;&lt; 10;
+</pre></div>
+</div>
+<p>Then use it in the shader logic:</p>
+<div class="highlight-gdshader notranslate"><div class="highlight"><pre><span></span>if ((cell_flag &amp; CFL_TRAP) != 0) {
+   VERTEX.y += sin(TIME * 4.0 + VERTEX.x * 2.0) * 0.2;
+}
+</pre></div>
+</div>
+<p>This allows you to visually modify the trap cells directly at the shader level.</p>
+</section>
+<section id="combining-customcelldata">
+<h3><a class="toc-backref" href="#id47" role="doc-backlink">Combining CustomCellData</a><a class="headerlink" href="#combining-customcelldata" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">CustomCellData</span></code> entries can be <strong>combined</strong> on the same cell.</p>
+<p>For example, you can create an additional <code class="docutils literal notranslate"><span class="pre">CustomCellData</span></code> that represents a visual effect and combine it with an existing one (such as a trap).</p>
+<p><strong>Example: Pulsation effect</strong></p>
+<ul class="simple">
+<li><p>Create a new <code class="docutils literal notranslate"><span class="pre">CustomCellData</span></code> entry.</p></li>
+<li><p>Configure it with its own <code class="docutils literal notranslate"><span class="pre">mask</span></code>.</p></li>
+<li><p>Give it a meaningful name, for example: <code class="docutils literal notranslate"><span class="pre">CFL_PULSE</span></code>.</p></li>
+<li><p>Custom Data Name: <strong>CFL_PULSE</strong></p></li>
+<li><p>Layer Mask : <strong>9</strong></p></li>
+<li><p>Collision Layer : <strong>None</strong></p></li>
+<li><p>Don't use Custom color</p></li>
+</ul>
+<p>A cell can now have multiple <code class="docutils literal notranslate"><span class="pre">CustomCellData</span></code> flags at the same time (<code class="docutils literal notranslate"><span class="pre">CFL_TRAP</span></code> + <code class="docutils literal notranslate"><span class="pre">CFL_PULSE</span></code>), allowing you to stack behaviors and visual effects.</p>
+<p>In the shader script, define a new flag for the pulsation effect:</p>
+<div class="highlight-gdshader notranslate"><div class="highlight"><pre><span></span>const int CFL_PULSE = 1 &lt;&lt; 8;
+
+vec3 pulse_color(vec3 base_color, float speed, float min_val, float max_val) {
+   float center = (min_val + max_val) * 0.5;
+   float range  = (max_val - min_val) * 0.5;
+   return base_color * (sin(TIME * speed) * range + center);
+}
+
+void vertex() {
+
+   //...
+
+   if ((cell_flag &amp; CFL_PULSE) != 0) {
+      instance_c.rgb = pulse_color(vec3(instance_c.rgb), 4.0, 0.3, 0.8);
+   }
+
+   //...
+}
+</pre></div>
+</div>
+<p>This shader code applies a pulsating color effect to any grid cell that has the <code class="docutils literal notranslate"><span class="pre">CFL_PULSE</span></code> flag enabled.</p>
+<a class="reference internal image-reference" href="../_images/custom_cell_data.png"><img alt="custom_cell_data.png" src="../_images/custom_cell_data.png" style="width: 450px;" />
+</a>
+</section>
+<section id="assign-customcelldata-via-gdscript">
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">Assign CustomCellData via GDScript</a><a class="headerlink" href="#assign-customcelldata-via-gdscript" title="Link to this heading"></a></h3>
+<p>It is also possible to assign <code class="docutils literal notranslate"><span class="pre">CustomCellData</span></code> to specific cells via GDScript.</p>
+<p>For example:</p>
+<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="k">var</span><span class="w"> </span><span class="n">neighbors</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">PackedInt64Array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_neighbors</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">)</span>
+<span class="w">     </span><span class="k k-ControlFlow">for</span><span class="w"> </span><span class="n">neighbor_index</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">neighbors</span><span class="p">:</span>
+<span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="nf">add_custom_cell_data</span><span class="p">(</span><span class="n">neighbor_index</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CFL_NEIGHBORS&quot;</span><span class="p">)</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="nf">add_custom_cell_data</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CFL_PLAYER&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="nf">update_custom_data</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Don't forget to call <code class="docutils literal notranslate"><span class="pre">update_custom_data()</span></code>.
+It refreshes custom_cell_flags, colors, and the A* configuration
+based on the newly updated CellCustomData.</p>
+</div>
+</section>
+<section id="final-scripts">
+<h3><a class="toc-backref" href="#id49" role="doc-backlink">Final Scripts</a><a class="headerlink" href="#final-scripts" title="Link to this heading"></a></h3>
+<div class="highlight-gdshader notranslate"><div class="highlight"><pre><span></span>// interractive_grid.gdshader
+
+shader_type spatial;
+render_mode unshaded, cull_disabled, depth_draw_opaque;
+
+varying vec4 instance_c;
+varying vec4 instance_c_default;
+varying float alpha;
+
+// Default cell flags:
+const int CFL_WALKABLE = 1 &lt;&lt; 0;
+const int CFL_REACHABLE = 1 &lt;&lt; 1;
+const int CFL_IN_VOID = 1 &lt;&lt; 2;
+const int CFL_HOVERED = 1 &lt;&lt; 3;
+const int CFL_SELECTED  = 1 &lt;&lt; 4;
+const int CFL_PATH = 1 &lt;&lt; 5;
+const int CFL_VISIBLE = 1 &lt;&lt; 6;
+
+// Custom cell data:
+const int CFL_PLAYER = 1 &lt;&lt; 7;
+const int CFL_NEIGHBORS = 1 &lt;&lt; 9;
+const int CFL_TRAP = 1 &lt;&lt; 10;
+const int CFL_PULSE = 1 &lt;&lt; 8;
+
+vec3 pulse_color(vec3 base_color, float speed, float min_val, float max_val) {
+   float center = (min_val + max_val) * 0.5;
+   float range  = (max_val - min_val) * 0.5;
+   return base_color * (sin(TIME * speed) * range + center);
+}
+
+void vertex() {
+   instance_c = INSTANCE_CUSTOM;
+   int cell_flag = int(instance_c.a);
+   alpha = 0.5;
+
+   if ((cell_flag &amp; CFL_WALKABLE) == 0) {
+      alpha = 0.20;
+   }
+
+   if ((cell_flag &amp; CFL_NEIGHBORS) != 0
+      &amp;&amp; (cell_flag &amp; CFL_PATH) == 0
+      &amp;&amp; (cell_flag &amp; CFL_TRAP) == 0)
+      {
+         if ((cell_flag &amp; CFL_WALKABLE) != 0) {
+            alpha = 0.40;
+            instance_c.r = 0.2;
+            instance_c.g = 0.5;
+            instance_c.b = 1.0;
+         }
+      }
+
+   if ((cell_flag &amp; CFL_PATH) != 0) {
+      VERTEX.y += sin(TIME * 4.0 + VERTEX.x * 2.0) * 0.2;
+   }
+
+   if ((cell_flag &amp; CFL_HOVERED) != 0) {
+      VERTEX.y += sin(TIME * 4.0) * 0.2;
+   }
+
+   if ((cell_flag &amp; CFL_TRAP) != 0) {
+      VERTEX.y += sin(TIME * 4.0 + VERTEX.x * 2.0) * 0.2;
+   }
+
+   if ((cell_flag &amp; CFL_PULSE) != 0) {
+      instance_c.rgb = pulse_color(vec3(instance_c.rgb), 4.0, 0.3, 0.8);
+   }
+
+   if ((cell_flag &amp; CFL_VISIBLE) == 0) {
+      alpha = 0.0; // invisible
+   }
+
+   if ((cell_flag &amp; CFL_REACHABLE) == 0) {
+      alpha = 0.0; // invisible
+   }
+
+   if ((cell_flag &amp; CFL_IN_VOID) != 0) {
+      alpha = 0.0; // invisible
+   }
+}
+
+void fragment() {
+   if (alpha == 0.0) {
+      discard; // ne pas dessiner les cellules non atteignables
+   }
+   ALBEDO = instance_c.rgb;
+   EMISSION = instance_c.rgb;
+   ALPHA = alpha;
+}
+</pre></div>
+</div>
+<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="c1"># interactive_grid_3d.gd</span>
+
+<span class="k">extends</span><span class="w"> </span><span class="n">InteractiveGrid3D</span>
+
+<span class="nd">@onready</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">ray_cast_from_mouse</span><span class="p">:</span><span class="w"> </span><span class="nb">RayCast3D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sx">$&quot;../RayCastFromMouse&quot;</span>
+
+<span class="k">var</span><span class="w"> </span><span class="n">_path</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">PackedInt64Array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+<span class="k">var</span><span class="w"> </span><span class="n">_pawn</span><span class="p">:</span><span class="w"> </span><span class="nb">CharacterBody3D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="l">null</span>
+
+<span class="nd">@onready</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">debug_collision_shape_area_3d</span><span class="p">:</span><span class="w"> </span><span class="nb">CollisionShape3D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sx">$&quot;../DebugCollisionShapeArea3D/DebugCollisionShapeArea3D&quot;</span>
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">_ready</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">   </span><span class="k k-ControlFlow">pass</span>
+
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">_process</span><span class="p">(</span><span class="n">delta</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">_pawn</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="l">null</span><span class="p">:</span>
+<span class="w">      </span><span class="k k-ControlFlow">return</span>
+
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_selected_cells</span><span class="p">()</span><span class="o">.</span><span class="nf">is_empty</span><span class="p">():</span>
+<span class="w">      </span><span class="bp">self</span><span class="o">.</span><span class="nf">highlight_on_hover</span><span class="p">(</span><span class="n">ray_cast_from_mouse</span><span class="o">.</span><span class="nf">get_ray_intersection_position</span><span class="p">())</span>
+<span class="w">   </span><span class="k k-ControlFlow">else</span><span class="p">:</span>
+<span class="w">      </span><span class="nf">move_along_path</span><span class="p">(</span><span class="n">_path</span><span class="p">)</span>
+
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">show_grid</span><span class="p">():</span>
+<span class="w">   </span><span class="c c-Region">#region InteractiveGrid3D Center</span>
+<span class="w">   </span><span class="c c-Doc">## Here, the grid is centered around the player.</span>
+<span class="w">   </span><span class="c c-Doc">## !Note: This operation repositions all cells, aligns them with the environment,</span>
+<span class="w">   </span><span class="c c-Doc">## rescans obstacles and custom data, and refreshes A* navigation.</span>
+<span class="w">   </span><span class="c c-Doc">##  - Manual modifications can also be applied here, such as:</span>
+<span class="w">   </span><span class="c c-Doc">##     - Hiding cells beyond a certain distance</span>
+<span class="w">   </span><span class="c c-Doc">##     - compute_unreachable_cells</span>
+<span class="w">   </span><span class="c c-Doc">##     - Adding custom data</span>
+<span class="w">   </span><span class="c c-Region">#endregion</span>
+
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">_pawn</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="l">null</span><span class="p">:</span>
+<span class="w">      </span><span class="k k-ControlFlow">return</span>
+
+<span class="w">   </span><span class="nb nb-Function">print</span><span class="p">(</span><span class="s2">&quot;show_grid&quot;</span><span class="p">)</span>
+
+<span class="w">   </span><span class="n">_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">set_visible</span><span class="p">(</span><span class="l">true</span><span class="p">)</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">center</span><span class="p">(</span><span class="n">_pawn</span><span class="o">.</span><span class="vi">global_position</span><span class="p">)</span>
+
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">pawn_current_cell_index</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_cell_index_from_global_position</span><span class="p">(</span><span class="n">_pawn</span><span class="o">.</span><span class="vi">global_position</span><span class="p">)</span>
+
+<span class="w">   </span><span class="c1"># To prevent the player from getting stuck.</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">set_cell_walkable</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">,</span><span class="w"> </span><span class="l">true</span><span class="p">)</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">set_cell_reachable</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">,</span><span class="w"> </span><span class="l">true</span><span class="p">)</span>
+
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">hide_distant_cells</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">compute_unreachable_cells</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">)</span>
+
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">cell_position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get_cell_global_position</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">)</span>
+<span class="w">   </span><span class="n">debug_collision_shape_area_3d</span><span class="o">.</span><span class="vi">global_position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cell_position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">get_cell_shape_offset</span><span class="p">()</span>
+
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">neighbors</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">PackedInt64Array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_neighbors</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">)</span>
+<span class="w">   </span><span class="k k-ControlFlow">for</span><span class="w"> </span><span class="n">neighbor_index</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">neighbors</span><span class="p">:</span>
+<span class="w">      </span><span class="bp">self</span><span class="o">.</span><span class="nf">add_custom_cell_data</span><span class="p">(</span><span class="n">neighbor_index</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CFL_NEIGHBORS&quot;</span><span class="p">)</span>
+
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">add_custom_cell_data</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CFL_PLAYER&quot;</span><span class="p">)</span>
+
+<span class="w">   </span><span class="c c-Region">#region update_custom_data()</span>
+<span class="w">   </span><span class="c c-Doc">## !Note: Don&#39;t forget to call update_custom_data().</span>
+<span class="w">   </span><span class="c c-Doc">## It refreshes custom_cell_flags, colors, and the A* configuration</span>
+<span class="w">   </span><span class="c c-Doc">## based on the newly updated CellCustomData.</span>
+<span class="w">   </span><span class="c c-Region">#endregion</span>
+<span class="w">   </span><span class="bp">self</span><span class="o">.</span><span class="nf">update_custom_data</span><span class="p">()</span>
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">_input</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="ow">is</span><span class="w"> </span><span class="nb">InputEventMouseButton</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">event</span><span class="o">.</span><span class="vi">button_index</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">MOUSE_BUTTON_LEFT</span><span class="p">:</span>
+<span class="w">      </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">_pawn</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="l">null</span><span class="p">:</span>
+<span class="w">         </span><span class="k k-ControlFlow">return</span>
+
+<span class="w">      </span><span class="k">var</span><span class="w"> </span><span class="n">ray_pos</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ray_cast_from_mouse</span><span class="o">.</span><span class="nf">get_ray_intersection_position</span><span class="p">()</span>
+<span class="w">      </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">ray_pos</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="l">null</span><span class="p">:</span>
+<span class="w">         </span><span class="k k-ControlFlow">return</span>
+
+<span class="w">      </span><span class="k">var</span><span class="w"> </span><span class="n">selected_cells</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_selected_cells</span><span class="p">()</span>
+<span class="w">      </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">selected_cells</span><span class="o">.</span><span class="nf">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span>
+<span class="w">         </span><span class="k">var</span><span class="w"> </span><span class="n">hit_cell_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_cell_index_from_global_position</span><span class="p">(</span><span class="n">ray_pos</span><span class="p">)</span>
+<span class="w">         </span><span class="bp">self</span><span class="o">.</span><span class="nf">select_cell</span><span class="p">(</span><span class="n">hit_cell_index</span><span class="p">)</span>
+<span class="w">         </span><span class="n">selected_cells</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_selected_cells</span><span class="p">()</span>
+<span class="w">         </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">selected_cells</span><span class="o">.</span><span class="nf">is_empty</span><span class="p">():</span>
+<span class="w">            </span><span class="k k-ControlFlow">return</span>
+
+<span class="w">         </span><span class="k">var</span><span class="w"> </span><span class="n">pawn_current_cell_index</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_cell_index_from_global_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="nf">get_grid_center_global_position</span><span class="p">())</span>
+<span class="w">         </span><span class="bp">self</span><span class="o">.</span><span class="nf">set_cell_walkable</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">,</span><span class="w"> </span><span class="l">true</span><span class="p">)</span>
+<span class="w">         </span><span class="n">_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_path</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">,</span><span class="w"> </span><span class="n">selected_cells</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="w">         </span><span class="nb nb-Function">print</span><span class="p">(</span><span class="s2">&quot;Last selected cell:&quot;</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_latest_selected</span><span class="p">())</span>
+<span class="w">         </span><span class="nb nb-Function">print</span><span class="p">(</span><span class="s2">&quot;Path:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">_path</span><span class="p">)</span>
+<span class="w">         </span><span class="bp">self</span><span class="o">.</span><span class="nf">highlight_path</span><span class="p">(</span><span class="n">_path</span><span class="p">)</span>
+
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">move_along_path</span><span class="p">(</span><span class="n">path</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">PackedInt64Array</span><span class="p">)</span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">path</span><span class="o">.</span><span class="nf">is_empty</span><span class="p">():</span>
+<span class="w">      </span><span class="nf">show_grid</span><span class="p">()</span>
+<span class="w">      </span><span class="k k-ControlFlow">return</span>
+
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">target_cell_index</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="w">   </span><span class="k">var</span><span class="w"> </span><span class="n">target_global_position</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get_cell_global_position</span><span class="p">(</span><span class="n">target_cell_index</span><span class="p">)</span>
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nf">is_on_target_cell</span><span class="p">(</span><span class="n">_pawn</span><span class="o">.</span><span class="vi">global_position</span><span class="p">,</span><span class="w"> </span><span class="n">target_global_position</span><span class="p">,</span><span class="w"> </span><span class="mf">0.20</span><span class="p">):</span>
+<span class="w">      </span><span class="nf">reaching_cell_target</span><span class="p">(</span><span class="n">target_cell_index</span><span class="p">,</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
+<span class="w">   </span><span class="k k-ControlFlow">else</span><span class="p">:</span>
+<span class="w">      </span><span class="nf">target_cell_reached</span><span class="p">()</span>
+
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">reaching_cell_target</span><span class="p">(</span><span class="n">target_cell_index</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="n">path</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">PackedInt64Array</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">_path</span><span class="o">.</span><span class="nf">size</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
+<span class="w">      </span><span class="k">var</span><span class="w"> </span><span class="n">target_cell_global_position</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="nf">get_cell_global_position</span><span class="p">(</span><span class="n">target_cell_index</span><span class="p">)</span>
+<span class="w">      </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="n">_pawn</span><span class="o">.</span><span class="nf">has_method</span><span class="p">(</span><span class="s2">&quot;move_to&quot;</span><span class="p">):</span>
+<span class="w">         </span><span class="n">_pawn</span><span class="o">.</span><span class="nf">move_to</span><span class="p">(</span><span class="n">target_cell_global_position</span><span class="p">)</span>
+<span class="w">      </span><span class="k k-ControlFlow">else</span><span class="p">:</span>
+<span class="w">         </span><span class="nb nb-Function">printerr</span><span class="p">(</span><span class="s2">&quot;pawn does not have the &#39;move_to&#39; method.&quot;</span><span class="p">)</span>
+
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">target_cell_reached</span><span class="p">():</span>
+<span class="w">   </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">_path</span><span class="o">.</span><span class="nf">is_empty</span><span class="p">():</span>
+<span class="w">      </span><span class="n">_path</span><span class="o">.</span><span class="nf">remove_at</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+
+<span class="k">static</span><span class="w"> </span><span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">is_on_target_cell</span><span class="p">(</span><span class="n">current_global_position</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="p">,</span><span class="w"> </span><span class="n">target_global_position</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector3</span><span class="p">,</span><span class="w"> </span><span class="n">threshold</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">bool</span><span class="p">:</span>
+<span class="w">   </span><span class="k k-ControlFlow">return</span><span class="w"> </span><span class="n">current_global_position</span><span class="o">.</span><span class="nf">distance_to</span><span class="p">(</span><span class="n">target_global_position</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">threshold</span>
+
+
+<span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">set_pawn</span><span class="p">(</span><span class="n">pawn</span><span class="p">:</span><span class="w"> </span><span class="nb">CharacterBody3D</span><span class="p">):</span>
+<span class="w">   </span><span class="n">_pawn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pawn</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="run-the-game">
+<h2><a class="toc-backref" href="#id50" role="doc-backlink">10 - Run the game</a><a class="headerlink" href="#run-the-game" title="Link to this heading"></a></h2>
+<p>Here is what the World scene looks like after setting up walls, the floor, and the interactive grid with shaders:</p>
+<a class="reference internal image-reference" href="../_images/demo_run.png"><img alt="demo_run.png" src="../_images/demo_run.png" style="width: 1080px;" />
+</a>
+<a class="reference external image-reference" href="https://ko-fi.com/antoinecharruel"><img alt="Support me on Ko-fi" src="https://ko-fi.com/img/githubbutton_sm.svg" />
+</a>
+<p><strong>Every contribution helps maintain and improve this project. And encourage me to make more projects like this!</strong></p>
+<p><em>This is optional support. The tool remains free and open-source regardless.</em></p>
+</section>
+</section>
+
+
+
+
+</div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="interactive-grid-3d.html" class="btn btn-neutral float-left" title="InteractiveGrid3D" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2014-present Juan Linietsky, Ariel Manzur and the Godot community (CC BY 3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Read the Docs</span>
+    v: latest (4.6)
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd><a href="#">en</a></dd>
+      
+        <dd><a href="#">de</a></dd>
+      
+        <dd><a href="#">es</a></dd>
+      
+        <dd><a href="#">fr</a></dd>
+      
+    </dl>
+    <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="#">stable</a></dd>
+      
+        <dd><a href="#">latest</a></dd>
+      
+    </dl>
+    <dl>
+      
+      <dt>On Read the Docs</dt>
+        <dd>
+          <a href="///projects/">Project Home</a>
+        </dd>
+        <dd>
+          <a href="///projects//builds/">Builds</a>
+        </dd>
+        <dd>
+          <a href="///projects//downloads/">Downloads</a>
+        </dd>
+    </dl>
+
+    <hr>
+    <small>
+      <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+      <span> · </span>
+      <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+    </small>
+
+    
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
