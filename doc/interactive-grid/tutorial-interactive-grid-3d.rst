@@ -997,7 +997,7 @@ Final Scripts
       ALPHA = alpha;
    }
 
-12 - Run The Game
+11 - Run The Game
 -----------------
 
 Here is what the World scene looks like after setting up walls, the floor, and the interactive grid with shaders:
