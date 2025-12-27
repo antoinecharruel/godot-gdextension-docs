@@ -281,25 +281,25 @@ Color **unreachable_color** = ``Color(0.8039216, 0.36078432, 0.36078432, 1)``
 
 .. rst-class:: classref-item-separator
 
-.. _class_interactivegrid3d_property_unwalkable_color:
+.. _class_interactivegrid3d_property_unaccessible_color:
 
-Color **unwalkable_color** = ``Color(0.8039216, 0.36078432, 0.36078432, 1)``
+Color **unaccessible_color** = ``Color(0.8039216, 0.36078432, 0.36078432, 1)``
 
 .. rst-class:: classref-property-setget
 
-- void **set_unwalkable_color** (value: Color)
-- Color **get_unwalkable_color** ()
+- void **set_unaccessible_color** (value: Color)
+- Color **get_unaccessible_color** ()
 
 .. rst-class:: classref-item-separator
 
-.. _class_interactivegrid3d_property_walkable_color:
+.. _class_interactivegrid3d_property_accessible_color:
 
-Color **walkable_color** = ``Color(0.5, 0.65, 1, 1)``
+Color **accessible_color** = ``Color(0.5, 0.65, 1, 1)``
 
 .. rst-class:: classref-property-setget
 
-- void **set_walkable_color** (value: Color)
-- Color **get_walkable_color** ()
+- void **set_accessible_color** (value: Color)
+- Color **get_accessible_color** ()
 
 .. rst-class:: classref-item-separator
 .. _methods:
@@ -349,7 +349,7 @@ Adds custom data to a specific cell.
    varying float alpha;
 
    // Default cell flags:
-   const int CFL_WALKABLE = 1 << 0;
+   const int CFL_ACCESSIBLE = 1 << 0;
    const int CFL_REACHABLE = 1 << 1;
    const int CFL_IN_VOID = 1 << 2;
    const int CFL_HOVERED = 1 << 3;
@@ -374,7 +374,7 @@ Adds custom data to a specific cell.
       int cell_flag = int(instance_c.a);
       alpha = 0.5;
       
-      if ((cell_flag & CFL_WALKABLE) == 0) {
+      if ((cell_flag & CFL_ACCESSIBLE) == 0) {
          alpha = 0.20;
       }
 
@@ -382,7 +382,7 @@ Adds custom data to a specific cell.
          && (cell_flag & CFL_PATH) == 0
          && (cell_flag & CFL_TRAP) == 0)
          {
-            if ((cell_flag & CFL_WALKABLE) != 0) {
+            if ((cell_flag & CFL_ACCESSIBLE) != 0) {
                alpha = 0.40;
                instance_c.r = 0.2;
                instance_c.g = 0.5;
@@ -478,7 +478,7 @@ void **compute_unreachable_cells** (start_cell_index: int) :ref:`🔗<class_Inte
 
 .. only:: not i18n
 
-  .. note:: ``Unreachable`` cells are not automatically marked as ``unwalkable``, allowing gameplay features
+  .. note:: ``Unreachable`` cells are not automatically marked as ``unaccessible``, allowing gameplay features
             such as teleportation.
 
 .. rst-class:: classref-item-separator
@@ -505,9 +505,9 @@ int **get_cell_index_from_global_position** (global_position: Vector3) const :re
 
 ----
 
-.. _class_InteractiveGrid3D_method_get_grid_center_global_position:
+.. _class_InteractiveGrid3D_method_get_center_global_position:
 
-Vector3 **get_grid_center_global_position** (global_position: Vector3) const :ref:`🔗<class_InteractiveGrid3D_method_get_grid_center_global_position>`
+Vector3 **get_center_global_position** (global_position: Vector3) const :ref:`🔗<class_InteractiveGrid3D_method_get_center_global_position>`
 
    Returns the ``global_position`` of the interactive grid.
 
@@ -580,7 +580,7 @@ bool **has_custom_cell_data** (cell_index: int, custom_data_name: String) const 
 
 void **hide_distant_cells** (start_cell_index: int, distance: float) const :ref:`🔗<class_InteractiveGrid3D_method_hide_distant_cells>`
 
-   Iterates over all grid cells and hides those located farther than the specified distance from the ``start_cell``. Marks them as ``unwalkable``.
+   Iterates over all grid cells and hides those located farther than the specified distance from the ``start_cell``. Marks them as ``unaccessible``.
 
 .. rst-class:: classref-item-separator
 
@@ -647,11 +647,11 @@ bool **is_cell_visible** (cell_index: int) const :ref:`🔗<class_InteractiveGri
 
 ----
 
-.. _class_InteractiveGrid3D_method_is_cell_walkable:
+.. _class_InteractiveGrid3D_method_is_cell_accessible:
 
-bool **is_cell_walkable** (cell_index: int) const :ref:`🔗<class_InteractiveGrid3D_method_is_cell_walkable>`
+bool **is_cell_accessible** (cell_index: int) const :ref:`🔗<class_InteractiveGrid3D_method_is_cell_accessible>`
 
-   Returns ``true`` if the cell at the specified index is currently marked as ``walkable``.
+   Returns ``true`` if the cell at the specified index is currently marked as ``accessible``.
 
 .. rst-class:: classref-item-separator
 
@@ -717,11 +717,11 @@ void **set_cell_reachable** (cell_index: int, set_cell_reachable: bool) :ref:`�
 
 ----
 
-.. _class_InteractiveGrid3D_method_set_cell_walkable:
+.. _class_InteractiveGrid3D_method_set_cell_accessible:
 
-void **set_cell_walkable** (cell_index: int, is_walkable: bool) :ref:`🔗<class_InteractiveGrid3D_method_set_cell_walkable>`
+void **set_cell_accessible** (cell_index: int, is_accessible: bool) :ref:`🔗<class_InteractiveGrid3D_method_set_cell_accessible>`
 
-   Sets whether a specific cell is ``walkable`` or not.
+   Sets whether a specific cell is ``accessible`` or not.
 
 .. rst-class:: classref-item-separator
 

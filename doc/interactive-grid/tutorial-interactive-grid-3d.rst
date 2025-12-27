@@ -416,7 +416,7 @@ Attach a Script
       var pawn_current_cell_index: int = self.get_cell_index_from_global_position(_pawn.global_position)
 
       # To prevent the player from getting stuck.
-      self.set_cell_walkable(pawn_current_cell_index, true)
+      self.set_cell_accessible(pawn_current_cell_index, true)
       self.set_cell_reachable(pawn_current_cell_index, true)
 
       self.hide_distant_cells(pawn_current_cell_index, 6)
@@ -446,8 +446,8 @@ Attach a Script
             if selected_cells.is_empty():
                return
 
-            var pawn_current_cell_index: int = self.get_cell_index_from_global_position(self.get_grid_center_global_position())
-            self.set_cell_walkable(pawn_current_cell_index, true)
+            var pawn_current_cell_index: int = self.get_cell_index_from_global_position(self.get_center_global_position())
+            self.set_cell_accessible(pawn_current_cell_index, true)
             _path = self.get_path(pawn_current_cell_index, selected_cells[0])
             print("Last selected cell:", self.get_latest_selected())
             print("Path:", _path)
@@ -556,7 +556,7 @@ Each grid cell has states stored in a bitmask. The flags can be retrieved via th
    :force:
 
    // Default cell flags:
-   const int CFL_WALKABLE = 1 << 0;
+   const int CFL_ACCESSIBLE = 1 << 0;
    const int CFL_REACHABLE = 1 << 1;
    const int CFL_IN_VOID = 1 << 2;
    const int CFL_HOVERED = 1 << 3;
@@ -587,7 +587,7 @@ Each grid cell has states stored in a bitmask. The flags can be retrieved via th
    varying float alpha;
 
    // Default cell flags:
-   const int CFL_WALKABLE = 1 << 0;
+   const int CFL_ACCESSIBLE = 1 << 0;
    const int CFL_REACHABLE = 1 << 1;
    const int CFL_IN_VOID = 1 << 2;
    const int CFL_HOVERED = 1 << 3;
@@ -600,7 +600,7 @@ Each grid cell has states stored in a bitmask. The flags can be retrieved via th
       int cell_flag = int(instance_c.a);
       alpha = 0.5;
       
-      if ((cell_flag & CFL_WALKABLE) == 0) {
+      if ((cell_flag & CFL_ACCESSIBLE) == 0) {
          alpha = 0.20;
       }
 
@@ -823,7 +823,7 @@ Final Scripts
       var pawn_current_cell_index: int = self.get_cell_index_from_global_position(_pawn.global_position)
 
       # To prevent the player from getting stuck.
-      self.set_cell_walkable(pawn_current_cell_index, true)
+      self.set_cell_accessible(pawn_current_cell_index, true)
       self.set_cell_reachable(pawn_current_cell_index, true)
 
       self.hide_distant_cells(pawn_current_cell_index, 6)
@@ -862,8 +862,8 @@ Final Scripts
             if selected_cells.is_empty():
                return
 
-            var pawn_current_cell_index: int = self.get_cell_index_from_global_position(self.get_grid_center_global_position())
-            self.set_cell_walkable(pawn_current_cell_index, true)
+            var pawn_current_cell_index: int = self.get_cell_index_from_global_position(self.get_center_global_position())
+            self.set_cell_accessible(pawn_current_cell_index, true)
             _path = self.get_path(pawn_current_cell_index, selected_cells[0])
             print("Last selected cell:", self.get_latest_selected())
             print("Path:", _path)
@@ -918,7 +918,7 @@ Final Scripts
    varying float alpha;
 
    // Default cell flags:
-   const int CFL_WALKABLE = 1 << 0;
+   const int CFL_ACCESSIBLE = 1 << 0;
    const int CFL_REACHABLE = 1 << 1;
    const int CFL_IN_VOID = 1 << 2;
    const int CFL_HOVERED = 1 << 3;
@@ -943,7 +943,7 @@ Final Scripts
       int cell_flag = int(instance_c.a);
       alpha = 0.5;
       
-      if ((cell_flag & CFL_WALKABLE) == 0) {
+      if ((cell_flag & CFL_ACCESSIBLE) == 0) {
          alpha = 0.20;
       }
 
@@ -951,7 +951,7 @@ Final Scripts
          && (cell_flag & CFL_PATH) == 0
          && (cell_flag & CFL_TRAP) == 0)
          {
-            if ((cell_flag & CFL_WALKABLE) != 0) {
+            if ((cell_flag & CFL_ACCESSIBLE) != 0) {
                alpha = 0.40;
                instance_c.r = 0.2;
                instance_c.g = 0.5;
