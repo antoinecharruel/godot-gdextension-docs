@@ -5,7 +5,7 @@
 `void <https://docs.godotengine.org/en/stable/classes/class_@gdscript.html>`_,:ref:`compute_unreachable_cells <class_InteractiveGrid3D_method_compute_unreachable_cells>`
 `Vector3 <https://docs.godotengine.org/en/stable/classes/class_vector3.html>`_,:ref:`get_cell_global_position <class_InteractiveGrid3D_method_get_cell_global_position>`
 `int <https://docs.godotengine.org/en/stable/classes/class_int.html>`_,:ref:`get_cell_index_from_global_position <class_InteractiveGrid3D_method_get_cell_index_from_global_position>`
-`Vector3 <https://docs.godotengine.org/en/stable/classes/class_vector3.html>`_,:ref:`get_grid_center_global_position <class_InteractiveGrid3D_method_get_grid_center_global_position>`
+`Vector3 <https://docs.godotengine.org/en/stable/classes/class_vector3.html>`_,:ref:`get_center_global_position <class_InteractiveGrid3D_method_get_center_global_position>`
 `int <https://docs.godotengine.org/en/stable/classes/class_int.html>`_,:ref:`get_latest_selected <class_InteractiveGrid3D_method_get_latest_selected>`
 `Array <https://docs.godotengine.org/en/stable/classes/class_array.html>`_,:ref:`get_neighbors <class_InteractiveGrid3D_method_get_neighbors>`
 `PackedInt64Array <https://docs.godotengine.org/en/stable/classes/class_packedint64array.html>`_,:ref:`get_path <class_InteractiveGrid3D_method_get_path>`
@@ -19,13 +19,13 @@
 `bool <https://docs.godotengine.org/en/stable/classes/class_bool.html>`_,:ref:`is_cell_reachable <class_InteractiveGrid3D_method_is_cell_reachable>`
 `bool <https://docs.godotengine.org/en/stable/classes/class_bool.html>`_,:ref:`is_cell_selected <class_InteractiveGrid3D_method_is_cell_selected>`
 `bool <https://docs.godotengine.org/en/stable/classes/class_bool.html>`_,:ref:`is_cell_visible <class_InteractiveGrid3D_method_is_cell_visible>`
-`bool <https://docs.godotengine.org/en/stable/classes/class_bool.html>`_,:ref:`is_cell_walkable <class_InteractiveGrid3D_method_is_cell_walkable>`
+`bool <https://docs.godotengine.org/en/stable/classes/class_bool.html>`_,:ref:`is_cell_accessible <class_InteractiveGrid3D_method_is_cell_accessible>`
 `bool <https://docs.godotengine.org/en/stable/classes/class_bool.html>`_,:ref:`is_grid_created <class_InteractiveGrid3D_method_is_grid_created>`
 `bool <https://docs.godotengine.org/en/stable/classes/class_bool.html>`_,:ref:`is_hover_enabled <class_InteractiveGrid3D_method_is_hover_enabled>`
 `void <https://docs.godotengine.org/en/stable/classes/class_@gdscript.html>`_,:ref:`reset_cells_state <class_InteractiveGrid3D_method_reset_cells_state>`
 `void <https://docs.godotengine.org/en/stable/classes/class_@gdscript.html>`_,:ref:`select_cell <class_InteractiveGrid3D_method_select_cell>`
 `void <https://docs.godotengine.org/en/stable/classes/class_@gdscript.html>`_,:ref:`set_cell_color <class_InteractiveGrid3D_method_set_cell_color>`
 `void <https://docs.godotengine.org/en/stable/classes/class_@gdscript.html>`_,:ref:`set_cell_reachable <class_InteractiveGrid3D_method_set_cell_reachable>`
-`void <https://docs.godotengine.org/en/stable/classes/class_@gdscript.html>`_,:ref:`set_cell_walkable <class_InteractiveGrid3D_method_set_cell_walkable>`
+`void <https://docs.godotengine.org/en/stable/classes/class_@gdscript.html>`_,:ref:`set_cell_accessible <class_InteractiveGrid3D_method_set_cell_accessible>`
 `void <https://docs.godotengine.org/en/stable/classes/class_@gdscript.html>`_,:ref:`set_hover_enabled <class_InteractiveGrid3D_method_set_hover_enabled>`
 `void <https://docs.godotengine.org/en/stable/classes/class_@gdscript.html>`_,:ref:`update_custom_data <class_InteractiveGrid3D_method_update_custom_data>`
