@@ -317,7 +317,7 @@ Set ``cell_shape_offset.y`` to **Height / 2**, which equals **3.0**.
 
    .. code-block:: gdscript
       :force:
-      
+
       var cell_global_xform: Transform3D = get_cell_global_transform(cell_index)
       var offset:Vector3 = get_cell_shape_offset()
       var offset_xform:Transform3D = Transform3D(Basis.IDENTITY, offset)
@@ -830,9 +830,11 @@ Final Scripts
 
       self.hide_distant_cells(pawn_current_cell_index, 6)
       self.compute_unreachable_cells(pawn_current_cell_index)
-      
-      var cell_position: Vector3 = get_cell_global_position(pawn_current_cell_index)
-      debug_collision_shape_area_3d.global_position = cell_position + get_cell_shape_offset()
+
+      var cell_global_xform: Transform3D = get_cell_global_transform(pawn_current_cell_index)
+      var offset:Vector3 = get_cell_shape_offset()
+      var offset_xform:Transform3D = Transform3D(Basis.IDENTITY, offset)
+      debug_collision_shape_area_3d.global_transform = cell_global_xform * offset_xform
       
       var neighbors: PackedInt64Array = self.get_neighbors(pawn_current_cell_index)
       for neighbor_index in neighbors:
