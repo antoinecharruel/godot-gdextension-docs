@@ -17,4 +17,4 @@
 `Color <https://docs.godotengine.org/en/stable/classes/class_color.html>`_,:ref:`selected_color <class_InteractiveGrid3D_property_selected_color>`,"``Color(0.8784314, 1, 1, 1)``"
 `Color <https://docs.godotengine.org/en/stable/classes/class_color.html>`_,:ref:`unreachable_color <class_InteractiveGrid3D_property_unreachable_color>`,"``Color(1, 1, 1, 1)``"
 `Color <https://docs.godotengine.org/en/stable/classes/class_color.html>`_,:ref:`unaccessible_color <class_InteractiveGrid3D_property_unaccessible_color>`,"``Color(0.8039216, 0.36078432, 0.36078432, 1)``"
-`Color <https://docs.godotengine.org/en/stable/classes/class_color.html>`_,:ref:`accessible_color <class_InteractiveGrid3D_property_walkable_color>`,"``Color(0.5, 0.65, 1, 1)``"
+`Color <https://docs.godotengine.org/en/stable/classes/class_color.html>`_,:ref:`accessible_color <class_InteractiveGrid3D_property_accessible_color>`,"``Color(0.5, 0.65, 1, 1)``"
