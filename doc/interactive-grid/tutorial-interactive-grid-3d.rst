@@ -318,8 +318,10 @@ Set ``cell_shape_offset.y`` to **Height / 2**, which equals **3.0**.
    .. code-block:: gdscript
       :force:
    
-      var cell_position = get_cell_global_position(pawn_current_cell_index)
-	   debug_collision_shape_area_3d.global_position = cell_position + get_cell_shape_offset()
+      var cell_global_xform: Transform3D = get_cell_global_transform(0)
+		var offset:Vector3 = get_cell_shape_offset()
+		var offset_xform:Transform3D = Transform3D(Basis.IDENTITY, offset)
+		debug_collision_shape_area_3d.global_transform = cell_global_xform * offset_xform
 
 Multiply all values by two to double the size of the grid cells.
 
