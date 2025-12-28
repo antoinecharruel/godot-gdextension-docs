@@ -318,7 +318,7 @@ Set ``cell_shape_offset.y`` to **Height / 2**, which equals **3.0**.
    .. code-block:: gdscript
       :force:
    
-      var cell_global_xform: Transform3D = get_cell_global_transform(0)
+      var cell_global_xform: Transform3D = get_cell_global_transform(cell_index)
 		var offset:Vector3 = get_cell_shape_offset()
 		var offset_xform:Transform3D = Transform3D(Basis.IDENTITY, offset)
 		debug_collision_shape_area_3d.global_transform = cell_global_xform * offset_xform
