@@ -467,7 +467,7 @@ Adds custom data to a specific cell.
 
    void fragment() {
       if (alpha == 0.0) {
-         discard; // ne pas dessiner les cellules non atteignables
+         discard;
       }
       ALBEDO = instance_c.rgb;
       EMISSION = instance_c.rgb;
