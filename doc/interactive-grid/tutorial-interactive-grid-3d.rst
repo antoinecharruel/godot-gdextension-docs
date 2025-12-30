@@ -378,16 +378,18 @@ Attach a Script
 
    var _path: PackedInt64Array = []
    var _pawn: CharacterBody3D = null
+   var _show_grid: bool = false
 
    @onready var debug_collision_shape_area_3d: CollisionShape3D = $"../DebugCollisionShapeArea3D/DebugCollisionShapeArea3D"
 
    func _ready() -> void:
-      pass
+      _show_grid = false
 
 
    func _process(delta: float) -> void:
-      if _pawn == null: 
-         return
+
+      if _show_grid == false and self.visible:
+         self.set_visible(false)
 
       if self.get_selected_cells().is_empty():
          self.highlight_on_hover(ray_cast_from_mouse.get_ray_intersection_position())
@@ -410,6 +412,7 @@ Attach a Script
          return
 
       print("show_grid")
+      _show_grid = true
 
       _path = []
       self.set_visible(true)
