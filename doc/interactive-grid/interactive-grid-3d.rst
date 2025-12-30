@@ -76,6 +76,19 @@ Enumerations
 Property Descriptions
 ---------------------
 
+.. _class_interactivegrid3d_property_accessible_color:
+
+Mesh **accessible_color**
+
+.. rst-class:: classref-property-setget
+
+- void **set_accessible_color** (value: Color)
+- Color **get_accessible_color** ()
+
+Color used to indicate that the cell is accessible.
+
+.. rst-class:: classref-item-separator
+
 .. _class_interactivegrid3d_property_cell_mesh:
 
 Mesh **cell_mesh**
@@ -85,7 +98,20 @@ Mesh **cell_mesh**
 - void **set_cell_mesh** (value: Mesh)
 - Mesh **get_cell_mesh** ()
 
-The actual mesh owned by this interactive grid.
+The Mesh resource for the grid.
+
+.. rst-class:: classref-item-separator
+
+.. _class_interactivegrid3d_property_cell_rotation:
+
+Vector3 **cell_rotation**
+
+.. rst-class:: classref-property-setget
+
+- void **set_cell_rotation** (value: int)
+- Mesh **get_cell_rotation** ()
+
+Rotation of the cell in 3D space.
 
 .. rst-class:: classref-item-separator
 
@@ -98,7 +124,7 @@ Shape3D **cell_shape**
 - void **set_cell_shape** (value: Shape3D)
 - Shape3D **get_cell_shape** ()
 
-The actual shape owned by this interactive grid.
+The Shape3D resource for the cell, used for obstacle detection and for detecting objects that have a collision shape on the same layer as a CustomCellData.
 
 .. rst-class:: classref-item-separator
 
@@ -111,7 +137,7 @@ Shape3D **cell_shape_offset**
 - void **set_cell_shape_offset** (value: Vector3)
 - Shape3D **get_cell_shape_offset** ()
 
-Offset applied to the shape of the cell, used to adjust its position relative to the cell global position.
+Offset of the cell shape relative to the cell origin.
 
 .. rst-class:: classref-item-separator
 
@@ -124,6 +150,8 @@ Vector2D **cell_size** = ``Vector2(1, 1)``
 - void **set_cell_size** (value: Vector2D)
 - Vector2D **get_cell_size** ()
 
+Size of each grid cell.
+
 .. rst-class:: classref-item-separator
 
 .. _class_interactivegrid3d_property_columns:
@@ -134,6 +162,8 @@ int **cell_columns** = ``9``
 
 - void **set_cell_columns** (value: int)
 - int **get_cell_columns** ()
+
+Number of columns in the grid.
 
 .. rst-class:: classref-item-separator
 
@@ -146,16 +176,20 @@ Array **custom_cells_data** = ``[]``
 - void **set_custom_cells_data** (value: Array)
 - Array **get_custom_cells_data** ()
 
+List of CustomCellData used to add additional states, behaviors, or visual effects to specific grid cells. Each CustomCellData can be applied via a collision mask or through GDScript, and is accessible in shader scripts via the INSTANCE_CUSTOM alpha channel.
+
 .. rst-class:: classref-item-separator
 
 .. _class_interactivegrid3d_property_floor_collision_masks:
 
-Int **floor_collision_masks** = ``16384``
+int **floor_collision_masks** = ``16384``
 
 .. rst-class:: classref-property-setget
 
-- void **set_floor_collision_masks** (value: Int)
-- Int **get_floor_collision_masks** ()
+- void **set_floor_collision_masks** (value: int)
+- int **get_floor_collision_masks** ()
+
+Collision masks used to detect the floor.
 
 .. rst-class:: classref-item-separator
 
@@ -166,7 +200,9 @@ Color **hovered_color** = ``Color(1, 0.84313726, 0, 1)``
 .. rst-class:: classref-property-setget
 
 - void **set_hovered_color** (value: Color)
-- Int **get_hovered_color** ()
+- int **get_hovered_color** ()
+
+Color used when the cell is hovered over.
 
 .. rst-class:: classref-item-separator
 
@@ -179,6 +215,8 @@ Layout **layout** = ``0``
 - void **set_layout** (value: Layout)
 - Color **get_layout** ()
 
+Grid layout type (LAYOUT_SQUARE, LAYOUT_HEXAGONAL).
+
 .. rst-class:: classref-item-separator
 
 .. _class_InteractiveGrid3D_property_material_override:
@@ -189,6 +227,8 @@ Material **material_override**
 
 - void **set_material_override** (value: Material)
 - Color **get_material_override** ()
+
+Optional material override for the grid. Assign a custom ShaderMaterial to visually modify grid cells.
 
 .. rst-class:: classref-item-separator
 
@@ -201,8 +241,9 @@ Movement **movement** = ``0``
 - void **set_movement** (value: Movement)
 - Color **get_movement** ()
 
-.. rst-class:: classref-item-separator
+Type of movement on the grid for pathfinding: 4, 6, or 8 directions.
 
+.. rst-class:: classref-item-separator
 
 .. _class_InteractiveGrid3D_property_obstacles_collision_masks:
 
@@ -212,6 +253,8 @@ int **obstacles_collision_masks** = ``8192``
 
 - void **get_obstacles_collision_masks** (value: int)
 - int **set_obstacles_collision_masks** ()
+
+Collision masks used to detect obstacles on the grid.
 
 .. rst-class:: classref-item-separator
 
@@ -224,6 +267,8 @@ int **path_color** = ``Color(0.5647059, 0.93333334, 0.5647059, 1)``
 - void **get_path_color** (value: bool)
 - bool **set_path_color** ()
 
+Color used to display the path.
+
 .. rst-class:: classref-item-separator
 
 .. _class_InteractiveGrid3D_property_print_execution_time_enabled:
@@ -234,6 +279,8 @@ bool **print_execution_time_enabled** = ``Color(0.5647059, 0.93333334, 0.5647059
 
 - void **set_print_execution_time_enabled** (value: bool)
 - bool **get_print_execution_time_enabled** ()
+
+Enable printing execution time of grid operations for debugging.
 
 .. rst-class:: classref-item-separator
 
@@ -246,6 +293,8 @@ bool **print_logs_enabled** = ``Color(0.5647059, 0.93333334, 0.5647059, 1)``
 - void **set_print_logs_enabled** (value: int)
 - int **get_print_logs_enabled** ()
 
+Enable printing debug logs related to grid operations.
+
 .. rst-class:: classref-item-separator
 
 .. _class_InteractiveGrid3D_property_rows:
@@ -256,6 +305,8 @@ int **rows** = ``9``
 
 - void **set_rows** (value: int)
 - int **get_rows** ()
+
+Number of rows in the grid.
 
 .. rst-class:: classref-item-separator
 
@@ -268,16 +319,7 @@ Color **selected_color** = ``Color(0.8784314, 1, 1, 1)``
 - void **set_selected_color** (value: Color)
 - Color **get_selected_color** ()
 
-.. rst-class:: classref-item-separator
-
-.. _class_interactivegrid3d_property_unreachable_color:
-
-Color **unreachable_color** = ``Color(0.8039216, 0.36078432, 0.36078432, 1)``
-
-.. rst-class:: classref-property-setget
-
-- void **set_unreachable_color** (value: Color)
-- Color **get_unreachable_color** ()
+Color used to indicate the currently selected cell.
 
 .. rst-class:: classref-item-separator
 
@@ -290,16 +332,20 @@ Color **unaccessible_color** = ``Color(0.8039216, 0.36078432, 0.36078432, 1)``
 - void **set_unaccessible_color** (value: Color)
 - Color **get_unaccessible_color** ()
 
+Color used to indicate that the cell is not accessible or blocked.
+
 .. rst-class:: classref-item-separator
 
-.. _class_interactivegrid3d_property_accessible_color:
+.. _class_interactivegrid3d_property_unreachable_color:
 
-Color **accessible_color** = ``Color(0.5, 0.65, 1, 1)``
+Color **unreachable_color** = ``Color(0.8039216, 0.36078432, 0.36078432, 1)``
 
 .. rst-class:: classref-property-setget
 
-- void **set_accessible_color** (value: Color)
-- Color **get_accessible_color** ()
+- void **set_unreachable_color** (value: Color)
+- Color **get_unreachable_color** ()
+
+Color used to indicate that the cell is not reachable.
 
 .. rst-class:: classref-item-separator
 .. _methods:
@@ -495,6 +541,16 @@ Vector3 **get_cell_global_position** (cell_index: int) const :ref:`🔗<class_In
 
 ----
 
+.. _class_InteractiveGrid3D_method_get_cell_global_transform:
+
+Transform3D **get_cell_global_transform** (cell_index: int) const :ref:`🔗<class_InteractiveGrid3D_method_get_cell_global_transform>`
+
+   Returns the ``global Transform3D`` of the cell identified by ``index``.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_InteractiveGrid3D_method_get_cell_index_from_global_position:
 
 int **get_cell_index_from_global_position** (global_position: Vector3) const :ref:`🔗<class_InteractiveGrid3D_method_get_cell_index_from_global_position>`
@@ -505,11 +561,21 @@ int **get_cell_index_from_global_position** (global_position: Vector3) const :re
 
 ----
 
+.. _class_InteractiveGrid3D_method_get_cell_transform:
+
+Transform3D **get_cell_transform** (cell_index: int) const :ref:`🔗<class_InteractiveGrid3D_method_get_cell_transform>`
+
+   Returns the ``local Transform3D`` of the cell identified by ``index``.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_InteractiveGrid3D_method_get_center_global_position:
 
 Vector3 **get_center_global_position** (global_position: Vector3) const :ref:`🔗<class_InteractiveGrid3D_method_get_center_global_position>`
 
-   Returns the ``global_position`` of the interactive grid.
+   Returns the ``global_position`` of the center of the grid.
 
 .. rst-class:: classref-item-separator
 
@@ -607,6 +673,16 @@ void **highlight_path** (path: PackedInt64Array) :ref:`🔗<class_InteractiveGri
 
 ----
 
+.. _class_InteractiveGrid3D_method_is_cell_accessible:
+
+bool **is_cell_accessible** (cell_index: int) const :ref:`🔗<class_InteractiveGrid3D_method_is_cell_accessible>`
+
+   Returns ``true`` if the cell at the specified index is currently marked as ``accessible``.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_InteractiveGrid3D_method_is_cell_hovered:
 
 bool **is_cell_hovered** (cell_index: int) const :ref:`🔗<class_InteractiveGrid3D_method_is_cell_hovered>`
@@ -644,18 +720,6 @@ bool **is_cell_visible** (cell_index: int) const :ref:`🔗<class_InteractiveGri
    Returns ``true`` if the cell at the specified index is currently marked as ``visible``.
 
 .. rst-class:: classref-item-separator
-
-----
-
-.. _class_InteractiveGrid3D_method_is_cell_accessible:
-
-bool **is_cell_accessible** (cell_index: int) const :ref:`🔗<class_InteractiveGrid3D_method_is_cell_accessible>`
-
-   Returns ``true`` if the cell at the specified index is currently marked as ``accessible``.
-
-.. rst-class:: classref-item-separator
-
-----
 
 .. _class_InteractiveGrid3D_method_is_grid_created:
 
@@ -697,6 +761,16 @@ void **select_cell** (global_position: Vector3) :ref:`🔗<class_InteractiveGrid
 
 ----
 
+.. _class_InteractiveGrid3D_method_set_cell_accessible:
+
+void **set_cell_accessible** (cell_index: int, is_accessible: bool) :ref:`🔗<class_InteractiveGrid3D_method_set_cell_accessible>`
+
+   Sets whether a specific cell is ``accessible`` or not.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_InteractiveGrid3D_method_set_cell_color:
 
 void **set_cell_color** (cell_index: int, color: Color) :ref:`🔗<class_InteractiveGrid3D_method_set_cell_color>`
@@ -714,18 +788,6 @@ void **set_cell_reachable** (cell_index: int, set_cell_reachable: bool) :ref:`�
    Sets whether a given grid cell is ``unreachable``.
 
 .. rst-class:: classref-item-separator
-
-----
-
-.. _class_InteractiveGrid3D_method_set_cell_accessible:
-
-void **set_cell_accessible** (cell_index: int, is_accessible: bool) :ref:`🔗<class_InteractiveGrid3D_method_set_cell_accessible>`
-
-   Sets whether a specific cell is ``accessible`` or not.
-
-.. rst-class:: classref-item-separator
-
-----
 
 .. _class_InteractiveGrid3D_method_set_hover_enabled:
 
