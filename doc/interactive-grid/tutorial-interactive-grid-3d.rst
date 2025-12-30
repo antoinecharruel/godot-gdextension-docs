@@ -785,17 +785,19 @@ Final Scripts
 
    var _path: PackedInt64Array = []
    var _pawn: CharacterBody3D = null
+   var _show_grid: bool = false
 
    @onready var debug_collision_shape_area_3d: CollisionShape3D = $"../DebugCollisionShapeArea3D/DebugCollisionShapeArea3D"
 
    func _ready() -> void:
-      pass
+      _show_grid = false
 
 
    func _process(delta: float) -> void:
-      if _pawn == null: 
-         return
-
+      
+      if _show_grid == false and self.visible:
+         self.set_visible(false)
+         
       if self.get_selected_cells().is_empty():
          self.highlight_on_hover(ray_cast_from_mouse.get_ray_intersection_position())
       else:
@@ -816,7 +818,11 @@ Final Scripts
       if _pawn == null:
          return
 
+      if not self.is_grid_created():
+         return
+               
       print("show_grid")
+      _show_grid = true
 
       _path = []
       self.set_visible(true)
@@ -830,7 +836,7 @@ Final Scripts
 
       self.hide_distant_cells(pawn_current_cell_index, 6)
       self.compute_unreachable_cells(pawn_current_cell_index)
-
+      
       var cell_global_xform: Transform3D = get_cell_global_transform(pawn_current_cell_index)
       var offset:Vector3 = get_cell_shape_offset()
       var offset_xform:Transform3D = Transform3D(Basis.IDENTITY, offset)
