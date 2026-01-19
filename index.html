@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>(DEV) Godot GDExtensions by Antoine Charruel &mdash; Godot Engine (latest) documentation in English</title>
+
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=41081ede" />
+      <link rel="stylesheet" type="text/css" href="_static/css/dev.css?v=b28a5b3c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/js/custom.js?v=e9f6a699"></script>
+      <script data-domain="godotengine.org" defer="defer" src="https://plausible.godot.foundation/js/script.file-downloads.outbound-links.js"></script>
+    <script src="_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc" />
+  
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="About" href="about.html" />
+<meta name="doc_version" content="latest" />
+<meta name="doc_is_latest" content="False" />
+<meta name="doc_pagename" content="index" />
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Antoine Charruel GDExtensions Documentation
+              <img src="_static/docs_logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="about.html#infos">Infos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interactive-grid/index.html">InteractiveGrid GDExtension</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interactive-grid/interactive-grid-3d.html">InteractiveGrid3D</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/interactive-grid-3d.html#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/interactive-grid-3d.html#properties">Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/interactive-grid-3d.html#methods">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/interactive-grid-3d.html#enumerations">Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/interactive-grid-3d.html#property-descriptions">Property Descriptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/interactive-grid-3d.html#method-descriptions">Method Descriptions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html">Tutorial - InteractiveGrid3D</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#getting-started">1 - Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#setting-up-the-playable-area">2 - Setting Up the Playable Area</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#create-the-root-node">Create the Root Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#add-the-floor">Add the Floor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#add-collision-to-the-floor">Add Collision to the Floor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#set-the-collision-layer-for-the-floor">Set the Collision Layer for The Floor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#add-light">Add Light</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#creating-the-player-scene">3 - Creating the Player Scene</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#create-the-player-scene">Create the Player Scene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#add-the-player-body">Add the Player Body</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#attach-a-collisionshape3d-to-the-player">Attach a CollisionShape3D to the Player</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#attach-a-camera3d-to-the-player">Attach a Camera3D to the Player</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#moving-the-player-with-code">4 - Moving the player with code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#raycast-from-mouse">5 - Raycast From Mouse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#add-a-raycast3d-node">Add a Raycast3D Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#attach-the-script">Attach the Script</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#configuring-the-interactive-grid">6 - Configuring the Interactive Grid</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#add-interactivegrid3d">Add InteractiveGrid3D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#set-grid-size">Set Grid Size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#add-a-cell-size">Add a Cell Size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#add-a-cell-mesh">Add a Cell Mesh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#add-a-cell-shape">Add a Cell Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#set-layout">Set Layout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#set-movement">Set Movement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#interactive-grid-scripting">7 - Interactive Grid Scripting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#attach-a-script">Attach a Script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#input">Input</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#preparing-the-world-scene">8 - Preparing the World Scene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#add-custom-shader">9 - Add Custom Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#add-custom-cell-data">10 - Add Custom Cell Data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#example-adding-a-trap-that-interacts-with-the-grid">Example: Adding a Trap That Interacts with the Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#accessing-customcelldata-in-the-shader">Accessing CustomCellData in the Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#combining-customcelldata">Combining CustomCellData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#assign-customcelldata-via-gdscript">Assign CustomCellData via GDScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#final-scripts">Final Scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html#run-the-game">11 - Run The Game</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Antoine Charruel GDExtensions Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		Godot Engine 4.6 documentation in English
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Godot GDExtensions by Antoine Charruel</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/antoinecharruel/godot-gdextension-docs//blob/main/doc/index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://contributing.godotengine.org/en/latest/organization/how_to_contribute.html">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+  <div class="admonition-grid">
+    
+
+    
+  </div>
+  
+
+  
+  <section id="godot-gdextensions-by-antoine-charruel">
+<h1>Godot GDExtensions by Antoine Charruel<a class="headerlink" href="#godot-gdextensions-by-antoine-charruel" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="about.html#infos">Infos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interactive-grid/index.html">InteractiveGrid GDExtension</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interactive-grid/interactive-grid-3d.html">InteractiveGrid3D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactive-grid/tutorial-interactive-grid-3d.html">Tutorial - InteractiveGrid3D</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+
+
+</div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="about.html" class="btn btn-neutral float-right" title="About" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2014-present Juan Linietsky, Ariel Manzur and the Godot community (CC BY 3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Read the Docs</span>
+    v: latest (4.6)
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd><a href="#">en</a></dd>
+      
+        <dd><a href="#">de</a></dd>
+      
+        <dd><a href="#">es</a></dd>
+      
+        <dd><a href="#">fr</a></dd>
+      
+    </dl>
+    <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="#">stable</a></dd>
+      
+        <dd><a href="#">latest</a></dd>
+      
+    </dl>
+    <dl>
+      
+      <dt>On Read the Docs</dt>
+        <dd>
+          <a href="///projects/">Project Home</a>
+        </dd>
+        <dd>
+          <a href="///projects//builds/">Builds</a>
+        </dd>
+        <dd>
+          <a href="///projects//downloads/">Downloads</a>
+        </dd>
+    </dl>
+
+    <hr>
+    <small>
+      <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+      <span> · </span>
+      <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+    </small>
+
+    
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

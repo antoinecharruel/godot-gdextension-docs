@@ -1,0 +1,937 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Inherits: Node3D < Node < Object GitHub repository: https://github.com/antoinecharruel/interactive_grid_gdextension. InteractiveGrid is a Godot GDExtension that allows player interaction with a 3D grid, including cell..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>(DEV) InteractiveGrid3D &mdash; Godot Engine (latest) documentation in English</title>
+
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=41081ede" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/dev.css?v=b28a5b3c" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/js/custom.js?v=e9f6a699"></script>
+      <script data-domain="godotengine.org" defer="defer" src="https://plausible.godot.foundation/js/script.file-downloads.outbound-links.js"></script>
+    <script src="../_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc" />
+  
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorial - InteractiveGrid3D" href="tutorial-interactive-grid-3d.html" />
+    <link rel="prev" title="InteractiveGrid GDExtension" href="index.html" />
+<meta name="doc_version" content="latest" />
+<meta name="doc_is_latest" content="False" />
+<meta name="doc_pagename" content="interactive-grid/interactive-grid-3d" />
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Antoine Charruel GDExtensions Documentation
+              <img src="../_static/docs_logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../about.html#infos">Infos</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">InteractiveGrid GDExtension</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">InteractiveGrid3D</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#properties">Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enumerations">Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#property-descriptions">Property Descriptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#method-descriptions">Method Descriptions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial-interactive-grid-3d.html">Tutorial - InteractiveGrid3D</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial-interactive-grid-3d.html#getting-started">1 - Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial-interactive-grid-3d.html#setting-up-the-playable-area">2 - Setting Up the Playable Area</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#create-the-root-node">Create the Root Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#add-the-floor">Add the Floor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#add-collision-to-the-floor">Add Collision to the Floor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#set-the-collision-layer-for-the-floor">Set the Collision Layer for The Floor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#add-light">Add Light</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial-interactive-grid-3d.html#creating-the-player-scene">3 - Creating the Player Scene</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#create-the-player-scene">Create the Player Scene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#add-the-player-body">Add the Player Body</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#attach-a-collisionshape3d-to-the-player">Attach a CollisionShape3D to the Player</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#attach-a-camera3d-to-the-player">Attach a Camera3D to the Player</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial-interactive-grid-3d.html#moving-the-player-with-code">4 - Moving the player with code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial-interactive-grid-3d.html#raycast-from-mouse">5 - Raycast From Mouse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#add-a-raycast3d-node">Add a Raycast3D Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#attach-the-script">Attach the Script</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial-interactive-grid-3d.html#configuring-the-interactive-grid">6 - Configuring the Interactive Grid</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#add-interactivegrid3d">Add InteractiveGrid3D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#set-grid-size">Set Grid Size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#add-a-cell-size">Add a Cell Size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#add-a-cell-mesh">Add a Cell Mesh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#add-a-cell-shape">Add a Cell Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#set-layout">Set Layout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#set-movement">Set Movement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial-interactive-grid-3d.html#interactive-grid-scripting">7 - Interactive Grid Scripting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#attach-a-script">Attach a Script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#input">Input</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial-interactive-grid-3d.html#preparing-the-world-scene">8 - Preparing the World Scene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial-interactive-grid-3d.html#add-custom-shader">9 - Add Custom Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial-interactive-grid-3d.html#add-custom-cell-data">10 - Add Custom Cell Data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#example-adding-a-trap-that-interacts-with-the-grid">Example: Adding a Trap That Interacts with the Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#accessing-customcelldata-in-the-shader">Accessing CustomCellData in the Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#combining-customcelldata">Combining CustomCellData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#assign-customcelldata-via-gdscript">Assign CustomCellData via GDScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial-interactive-grid-3d.html#final-scripts">Final Scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial-interactive-grid-3d.html#run-the-game">11 - Run The Game</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Antoine Charruel GDExtensions Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		Godot Engine 4.6 documentation in English
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">InteractiveGrid GDExtension</a></li>
+      <li class="breadcrumb-item active">InteractiveGrid3D</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/antoinecharruel/godot-gdextension-docs//blob/main/doc/interactive-grid/interactive-grid-3d.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://contributing.godotengine.org/en/latest/organization/how_to_contribute.html">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+  <div class="admonition-grid">
+    
+
+    
+  </div>
+  
+
+  
+  <section id="interactivegrid3d">
+<span id="class-interactivegrid3d"></span><h1>InteractiveGrid3D<a class="headerlink" href="#interactivegrid3d" title="Link to this heading"></a></h1>
+<p><strong>Inherits:</strong> <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_node3d.html">Node3D</a> <strong>&lt;</strong> <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_node.html">Node</a> <strong>&lt;</strong> <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_object.html">Object</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>GitHub repository: <a class="reference external" href="https://github.com/antoinecharruel/interactive_grid_gdextension">https://github.com/antoinecharruel/interactive_grid_gdextension</a>.</p>
+</div>
+<section class="classref-introduction-group" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h2>
+<p>InteractiveGrid is a Godot GDExtension that allows player interaction with a 3D grid, including cell selection, pathfinding, and hover highlights.</p>
+<ul class="simple">
+<li><p>Select individual cells.</p></li>
+<li><p>Detect obstacles (collision mask configurable from the editor).</p></li>
+<li><p>Align cells with the floor (collision mask configurable from the editor).</p></li>
+<li><p>Hide distant cells to focus on the relevant area.</p></li>
+<li><p>Calculate paths from a global position to selected cells using AStar2D.</p></li>
+<li><p>Choose movement type: 4 directions, 6 directions, 8 directions, directly from the editor.</p></li>
+<li><p>Customize the grid from the editor: grid size, cell size, mesh, colors, and shaders.</p></li>
+<li><p>High performance using MultiMeshInstance3D for efficient rendering of multiple cells.</p></li>
+</ul>
+</section>
+<section class="classref-properties-group" id="properties">
+<h2>Properties<a class="headerlink" href="#properties" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_color.html">Color</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-accessible-color"><span class="std std-ref">accessible_color</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Color(0.5,</span> <span class="pre">0.65,</span> <span class="pre">1,</span> <span class="pre">1)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_mesh.html">Mesh</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-cell-mesh"><span class="std std-ref">cell_mesh</span></a></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_vector3.html">Vector3</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-cell-rotation"><span class="std std-ref">cell_rotation</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Vector3(0,</span> <span class="pre">0</span> <span class="pre">,0)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_shape3d.html">Shape3D</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-cell-shape"><span class="std std-ref">cell_shape</span></a></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_vector3.html">Vector3</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-cell-shape-offset"><span class="std std-ref">cell_shape_offset</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Vector3(0,</span> <span class="pre">0</span> <span class="pre">,0)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_vector2.html">Vector2</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-cell-size"><span class="std std-ref">cell_size</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Vector2(1,</span> <span class="pre">1)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_int.html">int</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-columns"><span class="std std-ref">columns</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">9</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_array.html">Array</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-custom-cells-data"><span class="std std-ref">custom_cells_data</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_int.html">int</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-floor-collision-masks"><span class="std std-ref">floor_collision_masks</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">16384</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_color.html">Color</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-hovered-color"><span class="std std-ref">hovered_color</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Color(1,</span> <span class="pre">0.84313726,</span> <span class="pre">0,</span> <span class="pre">1)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#class-interactivegrid3d-enum-layout"><span class="std std-ref">Layout</span></a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-layout"><span class="std std-ref">layout</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_material.html">Material</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-material-override"><span class="std std-ref">material_override</span></a></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#class-interactivegrid3d-enum-movement"><span class="std std-ref">Movement</span></a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-movement"><span class="std std-ref">movement</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_int.html">int</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-obstacles-collision-masks"><span class="std std-ref">obstacles_collision_masks</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8192</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_color.html">Color</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-path-color"><span class="std std-ref">path_color</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Color(0.5647059,</span> <span class="pre">0.93333334,</span> <span class="pre">0.5647059,</span> <span class="pre">1)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_bool.html">bool</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-print-execution-time-enabled"><span class="std std-ref">print_execution_time_enabled</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_bool.html">bool</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-print-logs-enabled"><span class="std std-ref">print_logs_enabled</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_int.html">int</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-rows"><span class="std std-ref">rows</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">9</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_color.html">Color</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-selected-color"><span class="std std-ref">selected_color</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Color(0.8784314,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">1)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_color.html">Color</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-unaccessible-color"><span class="std std-ref">unaccessible_color</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Color(0.8039216,</span> <span class="pre">0.36078432,</span> <span class="pre">0.36078432,</span> <span class="pre">1)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_color.html">Color</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-property-unreachable-color"><span class="std std-ref">unreachable_color</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Color(1,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">1)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="classref-reftable-group" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-add-custom-cell-data"><span class="std std-ref">add_custom_cell_data</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-center"><span class="std std-ref">center</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-clear-all-custom-cell-data"><span class="std std-ref">clear_all_custom_cell_data</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-clear-custom-cell-data"><span class="std std-ref">clear_custom_cell_data</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-compute-unreachable-cells"><span class="std std-ref">compute_unreachable_cells</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_vector3.html">Vector3</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-get-cell-global-position"><span class="std std-ref">get_cell_global_position</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_transform3d.html">Transform3D</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-get-cell-global-transform"><span class="std std-ref">get_cell_global_transform</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_int.html">int</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-get-cell-index-from-global-position"><span class="std std-ref">get_cell_index_from_global_position</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_transform3d.html">Transform3D</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-get-cell-transform"><span class="std std-ref">get_cell_transform</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_vector3.html">Vector3</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-get-center-global-position"><span class="std std-ref">get_center_global_position</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_int.html">int</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-get-latest-selected"><span class="std std-ref">get_latest_selected</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_array.html">Array</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-get-neighbors"><span class="std std-ref">get_neighbors</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_packedint64array.html">PackedInt64Array</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-get-path"><span class="std std-ref">get_path</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_array.html">Array</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-get-selected-cells"><span class="std std-ref">get_selected_cells</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_int.html">int</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-get-size"><span class="std std-ref">get_size</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_bool.html">bool</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-has-custom-cell-data"><span class="std std-ref">has_custom_cell_data</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-hide-distant-cells"><span class="std std-ref">hide_distant_cells</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-highlight-on-hover"><span class="std std-ref">highlight_on_hover</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-highlight-on-hover"><span class="std std-ref">highlight_path</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_bool.html">bool</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-is-cell-accessible"><span class="std std-ref">is_cell_accessible</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_bool.html">bool</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-is-cell-hovered"><span class="std std-ref">is_cell_hovered</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_bool.html">bool</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-is-cell-reachable"><span class="std std-ref">is_cell_reachable</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_bool.html">bool</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-is-cell-selected"><span class="std std-ref">is_cell_selected</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_bool.html">bool</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-is-cell-visible"><span class="std std-ref">is_cell_visible</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_bool.html">bool</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-is-grid-created"><span class="std std-ref">is_grid_created</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_bool.html">bool</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-is-hover-enabled"><span class="std std-ref">is_hover_enabled</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-reset-cells-state"><span class="std std-ref">reset_cells_state</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-select-cell"><span class="std std-ref">select_cell</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-set-cell-accessible"><span class="std std-ref">set_cell_accessible</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-set-cell-color"><span class="std std-ref">set_cell_color</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-set-cell-reachable"><span class="std std-ref">set_cell_reachable</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-set-hover-enabled"><span class="std std-ref">set_hover_enabled</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_&#64;gdscript.html">void</a></p></td>
+<td><p><a class="reference internal" href="#class-interactivegrid3d-method-update-custom-data"><span class="std std-ref">update_custom_data</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="classref-section-separator" id="enumerations">
+<h2>Enumerations<a class="headerlink" href="#enumerations" title="Link to this heading"></a></h2>
+<p id="class-interactivegrid3d-enum-layout"><strong>enum Layout</strong></p>
+<ul class="simple">
+<li><p>LAYOUT_SQUARE = 0</p></li>
+<li><p>LAYOUT_HEXAGONAL = 1</p></li>
+</ul>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-enum-movement"><strong>enum Movement</strong></p>
+<ul class="simple">
+<li><p>MOVEMENT_FOUR_DIRECTIONS = 0</p></li>
+<li><p>MOVEMENT_SIX_DIRECTIONS = 1</p></li>
+<li><p>MOVEMENT_EIGHT_DIRECTIONS = 2</p></li>
+</ul>
+</section>
+<section class="classref-item-separator classref-descriptions-group" id="property-descriptions">
+<h2>Property Descriptions<a class="headerlink" href="#property-descriptions" title="Link to this heading"></a></h2>
+<p id="class-interactivegrid3d-property-accessible-color">Mesh <strong>accessible_color</strong></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_accessible_color</strong> (value: Color)</p></li>
+<li><p>Color <strong>get_accessible_color</strong> ()</p></li>
+</ul>
+<p>Color used to indicate that the cell is accessible.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-cell-mesh">Mesh <strong>cell_mesh</strong></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_cell_mesh</strong> (value: Mesh)</p></li>
+<li><p>Mesh <strong>get_cell_mesh</strong> ()</p></li>
+</ul>
+<p>The Mesh resource for the grid.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-cell-rotation">Vector3 <strong>cell_rotation</strong></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_cell_rotation</strong> (value: int)</p></li>
+<li><p>Mesh <strong>get_cell_rotation</strong> ()</p></li>
+</ul>
+<p>Rotation of the cell in 3D space.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-cell-shape">Shape3D <strong>cell_shape</strong></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_cell_shape</strong> (value: Shape3D)</p></li>
+<li><p>Shape3D <strong>get_cell_shape</strong> ()</p></li>
+</ul>
+<p>The Shape3D resource for the cell, used for obstacle detection and for detecting objects that have a collision shape on the same layer as a CustomCellData.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-cell-shape-offset">Shape3D <strong>cell_shape_offset</strong></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_cell_shape_offset</strong> (value: Vector3)</p></li>
+<li><p>Shape3D <strong>get_cell_shape_offset</strong> ()</p></li>
+</ul>
+<p>Offset of the cell shape relative to the cell origin.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-cell-size">Vector2D <strong>cell_size</strong> = <code class="docutils literal notranslate"><span class="pre">Vector2(1,</span> <span class="pre">1)</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_cell_size</strong> (value: Vector2D)</p></li>
+<li><p>Vector2D <strong>get_cell_size</strong> ()</p></li>
+</ul>
+<p>Size of each grid cell.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-columns">int <strong>cell_columns</strong> = <code class="docutils literal notranslate"><span class="pre">9</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_cell_columns</strong> (value: int)</p></li>
+<li><p>int <strong>get_cell_columns</strong> ()</p></li>
+</ul>
+<p>Number of columns in the grid.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-custom-cells-data">Array <strong>custom_cells_data</strong> = <code class="docutils literal notranslate"><span class="pre">[]</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_custom_cells_data</strong> (value: Array)</p></li>
+<li><p>Array <strong>get_custom_cells_data</strong> ()</p></li>
+</ul>
+<p>List of CustomCellData used to add additional states, behaviors, or visual effects to specific grid cells. Each CustomCellData can be applied via a collision mask or through GDScript, and is accessible in shader scripts via the INSTANCE_CUSTOM alpha channel.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-floor-collision-masks">int <strong>floor_collision_masks</strong> = <code class="docutils literal notranslate"><span class="pre">16384</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_floor_collision_masks</strong> (value: int)</p></li>
+<li><p>int <strong>get_floor_collision_masks</strong> ()</p></li>
+</ul>
+<p>Collision masks used to detect the floor.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-hovered-color">Color <strong>hovered_color</strong> = <code class="docutils literal notranslate"><span class="pre">Color(1,</span> <span class="pre">0.84313726,</span> <span class="pre">0,</span> <span class="pre">1)</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_hovered_color</strong> (value: Color)</p></li>
+<li><p>int <strong>get_hovered_color</strong> ()</p></li>
+</ul>
+<p>Color used when the cell is hovered over.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-layout">Layout <strong>layout</strong> = <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_layout</strong> (value: Layout)</p></li>
+<li><p>Color <strong>get_layout</strong> ()</p></li>
+</ul>
+<p>Grid layout type (LAYOUT_SQUARE, LAYOUT_HEXAGONAL).</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-material-override">Material <strong>material_override</strong></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_material_override</strong> (value: Material)</p></li>
+<li><p>Color <strong>get_material_override</strong> ()</p></li>
+</ul>
+<p>Optional material override for the grid. Assign a custom ShaderMaterial to visually modify grid cells.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-movement">Movement <strong>movement</strong> = <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_movement</strong> (value: Movement)</p></li>
+<li><p>Color <strong>get_movement</strong> ()</p></li>
+</ul>
+<p>Type of movement on the grid for pathfinding: 4, 6, or 8 directions.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-obstacles-collision-masks">int <strong>obstacles_collision_masks</strong> = <code class="docutils literal notranslate"><span class="pre">8192</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>get_obstacles_collision_masks</strong> (value: int)</p></li>
+<li><p>int <strong>set_obstacles_collision_masks</strong> ()</p></li>
+</ul>
+<p>Collision masks used to detect obstacles on the grid.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-path-color">int <strong>path_color</strong> = <code class="docutils literal notranslate"><span class="pre">Color(0.5647059,</span> <span class="pre">0.93333334,</span> <span class="pre">0.5647059,</span> <span class="pre">1)</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>get_path_color</strong> (value: bool)</p></li>
+<li><p>bool <strong>set_path_color</strong> ()</p></li>
+</ul>
+<p>Color used to display the path.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-print-execution-time-enabled">bool <strong>print_execution_time_enabled</strong> = <code class="docutils literal notranslate"><span class="pre">Color(0.5647059,</span> <span class="pre">0.93333334,</span> <span class="pre">0.5647059,</span> <span class="pre">1)</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_print_execution_time_enabled</strong> (value: bool)</p></li>
+<li><p>bool <strong>get_print_execution_time_enabled</strong> ()</p></li>
+</ul>
+<p>Enable printing execution time of grid operations for debugging.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-print-logs-enabled">bool <strong>print_logs_enabled</strong> = <code class="docutils literal notranslate"><span class="pre">Color(0.5647059,</span> <span class="pre">0.93333334,</span> <span class="pre">0.5647059,</span> <span class="pre">1)</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_print_logs_enabled</strong> (value: int)</p></li>
+<li><p>int <strong>get_print_logs_enabled</strong> ()</p></li>
+</ul>
+<p>Enable printing debug logs related to grid operations.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-rows">int <strong>rows</strong> = <code class="docutils literal notranslate"><span class="pre">9</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_rows</strong> (value: int)</p></li>
+<li><p>int <strong>get_rows</strong> ()</p></li>
+</ul>
+<p>Number of rows in the grid.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-selected-color">Color <strong>selected_color</strong> = <code class="docutils literal notranslate"><span class="pre">Color(0.8784314,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">1)</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_selected_color</strong> (value: Color)</p></li>
+<li><p>Color <strong>get_selected_color</strong> ()</p></li>
+</ul>
+<p>Color used to indicate the currently selected cell.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-unaccessible-color">Color <strong>unaccessible_color</strong> = <code class="docutils literal notranslate"><span class="pre">Color(0.8039216,</span> <span class="pre">0.36078432,</span> <span class="pre">0.36078432,</span> <span class="pre">1)</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_unaccessible_color</strong> (value: Color)</p></li>
+<li><p>Color <strong>get_unaccessible_color</strong> ()</p></li>
+</ul>
+<p>Color used to indicate that the cell is not accessible or blocked.</p>
+<p class="classref-item-separator" id="class-interactivegrid3d-property-unreachable-color">Color <strong>unreachable_color</strong> = <code class="docutils literal notranslate"><span class="pre">Color(0.8039216,</span> <span class="pre">0.36078432,</span> <span class="pre">0.36078432,</span> <span class="pre">1)</span></code></p>
+<ul class="classref-property-setget simple">
+<li><p>void <strong>set_unreachable_color</strong> (value: Color)</p></li>
+<li><p>Color <strong>get_unreachable_color</strong> ()</p></li>
+</ul>
+<p>Color used to indicate that the cell is not reachable.</p>
+</section>
+<section class="classref-item-separator" id="method-descriptions">
+<span id="id41"></span><h2>Method Descriptions<a class="headerlink" href="#method-descriptions" title="Link to this heading"></a></h2>
+<p class="classref-method" id="class-interactivegrid3d-method-add-custom-cell-data">void <strong>add_custom_cell_data</strong> (cell_index: int, custom_data_name: String) <a class="reference internal" href="#class-interactivegrid3d-method-add-custom-cell-data"><span class="std std-ref">🔗</span></a></p>
+<p>Adds custom data to a specific cell.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Applies the associated layer mask to the cell.</p></li>
+<li><p>If a custom color is defined, it is applied to the cell.</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="k">var</span><span class="w"> </span><span class="n">neighbors</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">interactive_grid_3d</span><span class="o">.</span><span class="nf">get_neighbors</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">)</span>
+
+<span class="k k-ControlFlow">for</span><span class="w"> </span><span class="n">neighbor_index</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">neighbors</span><span class="p">:</span>
+<span class="w">   </span><span class="n">interactive_grid_3d</span><span class="o">.</span><span class="nf">add_custom_cell_data</span><span class="p">(</span><span class="n">neighbor_index</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CFL_NEIGHBORS&quot;</span><span class="p">)</span>
+
+<span class="n">interactive_grid_3d</span><span class="o">.</span><span class="nf">add_custom_cell_data</span><span class="p">(</span><span class="n">pawn_current_cell_index</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CFL_PLAYER&quot;</span><span class="p">)</span>
+
+<span class="n">interactive_grid_3d</span><span class="o">.</span><span class="nf">update_custom_data</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must first define a <code class="docutils literal notranslate"><span class="pre">CustomCellData</span></code> resource in the editor inside the <code class="docutils literal notranslate"><span class="pre">Custom</span> <span class="pre">Cells</span> <span class="pre">Data</span></code> array property.</p>
+<p>This allows the layer mask to be used inside a GDShader for visual effects or cell-based rendering logic.</p>
+</div>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="c1">// interractive_grid.gdshader</span>
+
+<span class="n">shader_type</span><span class="w"> </span><span class="n">spatial</span><span class="p">;</span>
+<span class="n">render_mode</span><span class="w"> </span><span class="n">unshaded</span><span class="p">,</span><span class="w"> </span><span class="n">cull_disabled</span><span class="p">,</span><span class="w"> </span><span class="n">depth_draw_opaque</span><span class="p">;</span>
+
+<span class="k">varying</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="n">instance_c</span><span class="p">;</span>
+<span class="k">varying</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="n">instance_c_default</span><span class="p">;</span>
+<span class="k">varying</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">alpha</span><span class="p">;</span>
+
+<span class="c1">// Default cell flags:</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">CFL_ACCESSIBLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mo">0</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">CFL_REACHABLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">CFL_IN_VOID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">CFL_HOVERED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">CFL_SELECTED</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">CFL_PATH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">CFL_VISIBLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+
+<span class="c1">// Custom cell data:</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">CFL_PLAYER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">CFL_NEIGHBORS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">CFL_TRAP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">CFL_PULSE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+
+<span class="kt">vec3</span><span class="w"> </span><span class="n">pulse_color</span><span class="p">(</span><span class="kt">vec3</span><span class="w"> </span><span class="n">base_color</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">speed</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">min_val</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">max_val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="kt">float</span><span class="w"> </span><span class="n">center</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">min_val</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">max_val</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span>
+<span class="w">   </span><span class="kt">float</span><span class="w"> </span><span class="n">range</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">max_val</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">min_val</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">base_color</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">TIME</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">range</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">center</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">vertex</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">instance_c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">INSTANCE_CUSTOM</span><span class="p">;</span>
+<span class="w">   </span><span class="kt">int</span><span class="w"> </span><span class="n">cell_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="n">instance_c</span><span class="p">.</span><span class="n">a</span><span class="p">);</span>
+<span class="w">   </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">cell_flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">CFL_ACCESSIBLE</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mo">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.20</span><span class="p">;</span>
+<span class="w">   </span><span class="p">}</span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">cell_flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">CFL_NEIGHBORS</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mo">0</span>
+<span class="w">      </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">cell_flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">CFL_PATH</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mo">0</span>
+<span class="w">      </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">cell_flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">CFL_TRAP</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mo">0</span><span class="p">)</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">cell_flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">CFL_ACCESSIBLE</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mo">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.40</span><span class="p">;</span>
+<span class="w">            </span><span class="n">instance_c</span><span class="p">.</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.2</span><span class="p">;</span>
+<span class="w">            </span><span class="n">instance_c</span><span class="p">.</span><span class="n">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span>
+<span class="w">            </span><span class="n">instance_c</span><span class="p">.</span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">cell_flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">CFL_PATH</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mo">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">VERTEX</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">sin</span><span class="p">(</span><span class="n">TIME</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">4.0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">VERTEX</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.2</span><span class="p">;</span>
+<span class="w">   </span><span class="p">}</span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">cell_flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">CFL_HOVERED</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mo">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">VERTEX</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">sin</span><span class="p">(</span><span class="n">TIME</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">4.0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.2</span><span class="p">;</span>
+<span class="w">   </span><span class="p">}</span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">cell_flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">CFL_TRAP</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mo">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">VERTEX</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">sin</span><span class="p">(</span><span class="n">TIME</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">4.0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">VERTEX</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.2</span><span class="p">;</span>
+<span class="w">   </span><span class="p">}</span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">cell_flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">CFL_PULSE</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mo">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">instance_c</span><span class="p">.</span><span class="n">rgb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pulse_color</span><span class="p">(</span><span class="kt">vec3</span><span class="p">(</span><span class="n">instance_c</span><span class="p">.</span><span class="n">rgb</span><span class="p">),</span><span class="w"> </span><span class="mf">4.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">);</span>
+<span class="w">   </span><span class="p">}</span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">cell_flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">CFL_VISIBLE</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mo">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// invisible</span>
+<span class="w">   </span><span class="p">}</span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">cell_flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">CFL_REACHABLE</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mo">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// invisible</span>
+<span class="w">   </span><span class="p">}</span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">cell_flag</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">CFL_IN_VOID</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mo">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// invisible</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">fragment</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0.0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">discard</span><span class="p">;</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="w">   </span><span class="n">ALBEDO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instance_c</span><span class="p">.</span><span class="n">rgb</span><span class="p">;</span>
+<span class="w">   </span><span class="n">EMISSION</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instance_c</span><span class="p">.</span><span class="n">rgb</span><span class="p">;</span>
+<span class="w">   </span><span class="n">ALPHA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alpha</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-center">void <strong>center</strong> (center_position: Vector3) <a class="reference internal" href="#class-interactivegrid3d-method-center"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Centers the grid around the given <code class="docutils literal notranslate"><span class="pre">global</span> <span class="pre">position</span></code> and rebuilds its layout.</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation repositions all cells, realigns them with the environment,
+rescans obstacles and custom data, and refreshes A* navigation.</p>
+</div>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-clear-all-custom-cell-data">void <strong>clear_all_custom_cell_data</strong> (cell_index: int) <a class="reference internal" href="#class-interactivegrid3d-method-clear-all-custom-cell-data"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Resets the cell's <code class="docutils literal notranslate"><span class="pre">custom_flags</span></code> and removes any <code class="docutils literal notranslate"><span class="pre">custom_color</span></code>.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-clear-custom-cell-data">void <strong>clear_custom_cell_data</strong> (cell_index: int, custom_data_name: String, clear_custom_color: bool) <a class="reference internal" href="#class-interactivegrid3d-method-clear-custom-cell-data"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Resets the custom data of a given cell.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-compute-unreachable-cells">void <strong>compute_unreachable_cells</strong> (start_cell_index: int) <a class="reference internal" href="#class-interactivegrid3d-method-compute-unreachable-cells"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Iterates over all grid cells and marks as <code class="docutils literal notranslate"><span class="pre">unreachable</span></code> those cells
+that cannot be reached from the specified <code class="docutils literal notranslate"><span class="pre">start_cell</span></code>.</p>
+<p>Updates the visual representation by applying <code class="docutils literal notranslate"><span class="pre">unreachable_color</span></code> to the cells.</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">Unreachable</span></code> cells are not automatically marked as <code class="docutils literal notranslate"><span class="pre">unaccessible</span></code>, allowing gameplay features
+such as teleportation.</p>
+</div>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-get-cell-global-position">Vector3 <strong>get_cell_global_position</strong> (cell_index: int) const <a class="reference internal" href="#class-interactivegrid3d-method-get-cell-global-position"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Returns the <code class="docutils literal notranslate"><span class="pre">global_position</span></code> of the cell identified by <code class="docutils literal notranslate"><span class="pre">index</span></code>.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-get-cell-global-transform">Transform3D <strong>get_cell_global_transform</strong> (cell_index: int) const <a class="reference internal" href="#class-interactivegrid3d-method-get-cell-global-transform"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Returns the <code class="docutils literal notranslate"><span class="pre">global</span> <span class="pre">Transform3D</span></code> of the cell identified by <code class="docutils literal notranslate"><span class="pre">index</span></code>.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-get-cell-index-from-global-position">int <strong>get_cell_index_from_global_position</strong> (global_position: Vector3) const <a class="reference internal" href="#class-interactivegrid3d-method-get-cell-index-from-global-position"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Returns the <code class="docutils literal notranslate"><span class="pre">index</span></code> of the grid cell that is closest to the supplied world position.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-get-cell-transform">Transform3D <strong>get_cell_transform</strong> (cell_index: int) const <a class="reference internal" href="#class-interactivegrid3d-method-get-cell-transform"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Returns the <code class="docutils literal notranslate"><span class="pre">local</span> <span class="pre">Transform3D</span></code> of the cell identified by <code class="docutils literal notranslate"><span class="pre">index</span></code>.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-get-center-global-position">Vector3 <strong>get_center_global_position</strong> (global_position: Vector3) const <a class="reference internal" href="#class-interactivegrid3d-method-get-center-global-position"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Returns the <code class="docutils literal notranslate"><span class="pre">global_position</span></code> of the center of the grid.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-get-latest-selected">PackedInt64Array <strong>get_latest_selected</strong> (global_position: Vector3) const <a class="reference internal" href="#class-interactivegrid3d-method-get-latest-selected"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Returns the most recently <code class="docutils literal notranslate"><span class="pre">selected_cell</span></code>.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-get-neighbors">Array <strong>get_neighbors</strong> (cell_index: int) const <a class="reference internal" href="#class-interactivegrid3d-method-get-neighbors"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Returns the indices of neighboring cells for the specified grid cell.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-get-path">PackedInt64Array <strong>get_neighbors</strong> (cell_index: int) const <a class="reference internal" href="#class-interactivegrid3d-method-get-path"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Computes a <code class="docutils literal notranslate"><span class="pre">path</span></code> between two cells on the grid using A* pathfinding.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-get-selected-cells">Array <strong>get_selected_cells</strong> () <a class="reference internal" href="#class-interactivegrid3d-method-get-selected-cells"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Returns an array of all cells currently marked as <code class="docutils literal notranslate"><span class="pre">selected</span></code>.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-get-size">int <strong>get_size</strong> () const <a class="reference internal" href="#class-interactivegrid3d-method-get-size"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Returns the total <code class="docutils literal notranslate"><span class="pre">number</span></code> of cells in the grid.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-has-custom-cell-data">bool <strong>has_custom_cell_data</strong> (cell_index: int, custom_data_name: String) const <a class="reference internal" href="#class-interactivegrid3d-method-get-size"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Checks if a specific cell has the given <code class="docutils literal notranslate"><span class="pre">CustomCellData</span></code> applied.
+Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the cell's flags include the full layer mask of the specified <code class="docutils literal notranslate"><span class="pre">CustomCellData</span></code>, otherwise returns <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-hide-distant-cells">void <strong>hide_distant_cells</strong> (start_cell_index: int, distance: float) const <a class="reference internal" href="#class-interactivegrid3d-method-hide-distant-cells"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Iterates over all grid cells and hides those located farther than the specified distance from the <code class="docutils literal notranslate"><span class="pre">start_cell</span></code>. Marks them as <code class="docutils literal notranslate"><span class="pre">unaccessible</span></code>.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-highlight-on-hover">void <strong>highlight_on_hover</strong> (global_position: Vector3) <a class="reference internal" href="#class-interactivegrid3d-method-highlight-on-hover"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Updates the hover highlight state based on the specified <code class="docutils literal notranslate"><span class="pre">global_position</span></code>.
+Identifies the corresponding cell, clears any previous hover, and applies the hover color unless the cell is already selected.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-highlight-path">void <strong>highlight_path</strong> (path: PackedInt64Array) <a class="reference internal" href="#class-interactivegrid3d-method-highlight-path"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Highlights a given path on the grid by changing the color of each cell along the path to the predefined path color.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-is-cell-accessible">bool <strong>is_cell_accessible</strong> (cell_index: int) const <a class="reference internal" href="#class-interactivegrid3d-method-is-cell-accessible"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the cell at the specified index is currently marked as <code class="docutils literal notranslate"><span class="pre">accessible</span></code>.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-is-cell-hovered">bool <strong>is_cell_hovered</strong> (cell_index: int) const <a class="reference internal" href="#class-interactivegrid3d-method-is-cell-hovered"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the cell at the specified index is currently marked as hovered.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-is-cell-reachable">bool <strong>is_cell_reachable</strong> (cell_index: int) const <a class="reference internal" href="#class-interactivegrid3d-method-is-cell-reachable"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the cell at the specified index is currently marked as unreachable.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-is-cell-selected">bool <strong>is_cell_selected</strong> (cell_index: int) const <a class="reference internal" href="#class-interactivegrid3d-method-is-cell-selected"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the cell at the specified index is currently marked as <code class="docutils literal notranslate"><span class="pre">selected</span></code>.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-is-cell-visible">bool <strong>is_cell_visible</strong> (cell_index: int) const <a class="reference internal" href="#class-interactivegrid3d-method-is-cell-visible"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the cell at the specified index is currently marked as <code class="docutils literal notranslate"><span class="pre">visible</span></code>.</p>
+</div></blockquote>
+<p class="classref-item-separator" id="class-interactivegrid3d-method-is-grid-created">bool <strong>is_grid_created</strong> (cell_index: int) const <a class="reference internal" href="#class-interactivegrid3d-method-is-grid-created"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Checks if the grid has been created.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-is-hover-enabled">bool <strong>is_hover_enabled</strong> (cell_index: int) const <a class="reference internal" href="#class-interactivegrid3d-method-is-hover-enabled"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Checks whether hover functionality is currently disabled.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-reset-cells-state">void <strong>reset_cells_state</strong> () <a class="reference internal" href="#class-interactivegrid3d-method-reset-cells-state"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Clears all <code class="docutils literal notranslate"><span class="pre">CustomCellData</span></code>, resets <code class="docutils literal notranslate"><span class="pre">cell_flags</span></code>.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-select-cell">void <strong>select_cell</strong> (cell_index: int) <a class="reference internal" href="#class-interactivegrid3d-method-select-cell"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Selects a grid cell based on a <code class="docutils literal notranslate"><span class="pre">cell_index</span></code>.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-set-cell-accessible">void <strong>set_cell_accessible</strong> (cell_index: int, is_accessible: bool) <a class="reference internal" href="#class-interactivegrid3d-method-set-cell-accessible"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Sets whether a specific cell is <code class="docutils literal notranslate"><span class="pre">accessible</span></code> or not.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-set-cell-color">void <strong>set_cell_color</strong> (cell_index: int, color: Color) <a class="reference internal" href="#class-interactivegrid3d-method-set-cell-color"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Sets the <code class="docutils literal notranslate"><span class="pre">color</span></code> of a specific cell.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-set-cell-reachable">void <strong>set_cell_reachable</strong> (cell_index: int, set_cell_reachable: bool) <a class="reference internal" href="#class-interactivegrid3d-method-set-cell-reachable"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Sets whether a given grid cell is <code class="docutils literal notranslate"><span class="pre">unreachable</span></code>.</p>
+</div></blockquote>
+<p class="classref-item-separator" id="class-interactivegrid3d-method-set-hover-enabled">void <strong>set_hover_enabled</strong> (enabled: bool) <a class="reference internal" href="#class-interactivegrid3d-method-set-hover-enabled"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Enables or disables hover functionality.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p id="class-interactivegrid3d-method-update-custom-data">void <strong>update_custom_data</strong> () <a class="reference internal" href="#class-interactivegrid3d-method-update-custom-data"><span class="std std-ref">🔗</span></a></p>
+<blockquote>
+<div><p>Refreshes <code class="docutils literal notranslate"><span class="pre">custom_cell_flags</span></code>, colors, and A* configuration based on the current <code class="docutils literal notranslate"><span class="pre">CellCustomData</span></code>.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+</section>
+</section>
+
+
+
+
+</div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="InteractiveGrid GDExtension" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial-interactive-grid-3d.html" class="btn btn-neutral float-right" title="Tutorial - InteractiveGrid3D" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2014-present Juan Linietsky, Ariel Manzur and the Godot community (CC BY 3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Read the Docs</span>
+    v: latest (4.6)
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd><a href="#">en</a></dd>
+      
+        <dd><a href="#">de</a></dd>
+      
+        <dd><a href="#">es</a></dd>
+      
+        <dd><a href="#">fr</a></dd>
+      
+    </dl>
+    <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="#">stable</a></dd>
+      
+        <dd><a href="#">latest</a></dd>
+      
+    </dl>
+    <dl>
+      
+      <dt>On Read the Docs</dt>
+        <dd>
+          <a href="///projects/">Project Home</a>
+        </dd>
+        <dd>
+          <a href="///projects//builds/">Builds</a>
+        </dd>
+        <dd>
+          <a href="///projects//downloads/">Downloads</a>
+        </dd>
+    </dl>
+
+    <hr>
+    <small>
+      <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+      <span> · </span>
+      <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+    </small>
+
+    
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
