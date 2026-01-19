@@ -753,9 +753,9 @@ void **reset_cells_state** () :ref:`🔗<class_InteractiveGrid3D_method_reset_ce
 
 .. _class_InteractiveGrid3D_method_select_cell:
 
-void **select_cell** (global_position: Vector3) :ref:`🔗<class_InteractiveGrid3D_method_select_cell>`
+void **select_cell** (cell_index: int) :ref:`🔗<class_InteractiveGrid3D_method_select_cell>`
 
-   Selects a grid cell based on a ``global_position``.
+   Selects a grid cell based on a ``cell_index``.
 
 .. rst-class:: classref-item-separator
 
