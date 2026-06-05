@@ -1,0 +1,23 @@
+`Mesh <https://docs.godotengine.org/en/stable/classes/class_mesh.html>`_,:ref:`cell_mesh <class_InteractiveGrid3D_property_cell_mesh>`,
+`Vector3 <https://docs.godotengine.org/en/stable/classes/class_vector3.html>`_,:ref:`cell_rotation <class_InteractiveGrid3D_property_cell_rotation>`,"``Vector3(0, 0 ,0)``"
+`Shape3D <https://docs.godotengine.org/en/stable/classes/class_shape3d.html>`_,:ref:`cell_shape <class_InteractiveGrid3D_property_cell_shape>`,
+`Vector3 <https://docs.godotengine.org/en/stable/classes/class_vector3.html>`_,:ref:`cell_shape_offset <class_InteractiveGrid3D_property_cell_shape_offset>`,"``Vector3(0, 0 ,0)``"
+`Vector2 <https://docs.godotengine.org/en/stable/classes/class_vector2.html>`_,:ref:`cell_size <class_InteractiveGrid3D_property_cell_size>`,"``Vector2(1, 1)``"
+`bool <https://docs.godotengine.org/en/stable/classes/class_bool.html>`_,:ref:`collision_floor_enabled <class_InteractiveGrid3D_property_collision_floor_enabled>`,``true``
+`int <https://docs.godotengine.org/en/stable/classes/class_int.html>`_,:ref:`collision_floor_mask <class_InteractiveGrid3D_property_collision_floor_mask>`,``1``
+`bool <https://docs.godotengine.org/en/stable/classes/class_bool.html>`_,:ref:`collision_obstacles_enabled <class_InteractiveGrid3D_property_collision_obstacles_enabled>`,``true``
+`int <https://docs.godotengine.org/en/stable/classes/class_int.html>`_,:ref:`collision_obstacles_mask <class_InteractiveGrid3D_property_collision_obstacles_mask>`,``1``
+`Color <https://docs.godotengine.org/en/stable/classes/class_color.html>`_,:ref:`color_accessible <class_InteractiveGrid3D_property_color_accessible>`,"``Color(1, 1, 1, 1)``"
+`Color <https://docs.godotengine.org/en/stable/classes/class_color.html>`_,:ref:`color_hovered <class_InteractiveGrid3D_property_color_hovered>`,"``Color(1, 1, 1, 1)``"
+`Color <https://docs.godotengine.org/en/stable/classes/class_color.html>`_,:ref:`color_path <class_InteractiveGrid3D_property_color_path>`,"``Color(1, 1, 1, 1)``"
+`Color <https://docs.godotengine.org/en/stable/classes/class_color.html>`_,:ref:`color_selected <class_InteractiveGrid3D_property_color_selected>`,"``Color(1, 1, 1, 1)``"
+`Color <https://docs.godotengine.org/en/stable/classes/class_color.html>`_,:ref:`color_unaccessible <class_InteractiveGrid3D_property_color_unaccessible>`,"``Color(1, 1, 1, 1)``"
+`Color <https://docs.godotengine.org/en/stable/classes/class_color.html>`_,:ref:`color_unreachable <class_InteractiveGrid3D_property_color_unreachable>`,"``Color(1, 1, 1, 1)``"
+`int <https://docs.godotengine.org/en/stable/classes/class_int.html>`_,:ref:`columns <class_InteractiveGrid3D_property_columns>`,``9``
+`Array <https://docs.godotengine.org/en/stable/classes/class_array.html>`_,:ref:`custom_cells_data <class_InteractiveGrid3D_property_custom_cells_data>`,``[]``
+`bool <https://docs.godotengine.org/en/stable/classes/class_bool.html>`_,:ref:`debug_execution_time_enabled <class_InteractiveGrid3D_property_debug_execution_time_enabled>`,``false``
+`bool <https://docs.godotengine.org/en/stable/classes/class_bool.html>`_,:ref:`debug_logs_enabled <class_InteractiveGrid3D_property_debug_logs_enabled>`,``false``
+:ref:`Layout <class_InteractiveGrid3D_enum_layout>`,:ref:`layout <class_InteractiveGrid3D_property_layout>`,``0``
+`Material <https://docs.godotengine.org/en/stable/classes/class_material.html>`_,:ref:`material_override <class_InteractiveGrid3D_property_material_override>`,
+:ref:`Movement <class_InteractiveGrid3D_enum_movement>`,:ref:`movement <class_InteractiveGrid3D_property_movement>`,``0``
+`int <https://docs.godotengine.org/en/stable/classes/class_int.html>`_,:ref:`rows <class_InteractiveGrid3D_property_rows>`,``9``
