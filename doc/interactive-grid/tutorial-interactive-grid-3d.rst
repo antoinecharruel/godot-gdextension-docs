@@ -7,7 +7,7 @@ Tutorial - InteractiveGrid3D
 
 .. only:: not i18n
 
-  .. Note:: GitHub repository: https://github.com/antoinecharruel/interactive_grid_gdextension/tree/master/tutorial_demo_3d.
+  .. Note:: GitHub repository: https://github.com/antoinecharruel/interactive_grid_gdextension/tree/main/project.
 
 1 - Getting Started
 -------------------
@@ -33,7 +33,7 @@ Create the Root Node
 ~~~~~~~~~~~~~~~~~~~~
 
 * Click **+** and select ``3D Scene``.
-* Rename the root Node `Node3D <https://docs.godotengine.org/en/stable/classes/class_node3d.html>`_ -> ``"World"``.
+* Rename the root Node `Node3D <https://docs.godotengine.org/en/stable/classes/class_node3d.html>`_ ``"World"``.
 
 Add the Floor
 ~~~~~~~~~~~~~
@@ -108,7 +108,7 @@ Add the Player Body
    * With ``Pawn`` selected, click **+**, choose `MeshInstance3D <https://docs.godotengine.org/en/stable/classes/class_meshinstance3d.html>`_.
    * In the Mesh property, select `CapsuleShape3D <https://docs.godotengine.org/en/stable/classes/class_capsuleshape3d3d.html>`_.
    * Hold the Control key and move the `CapsuleShape3D <https://docs.godotengine.org/en/stable/classes/class_capsuleshape3d3d.html>`_. up.
-   * Rename it "Model".
+   * Rename it ``"Model"``.
 
 Attach a CollisionShape3D to the Player
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -122,7 +122,6 @@ Attach a Camera3D to the Player
 
 * Select the ``Pawn`` Node, click **+**, and add a `Camera3D <https://docs.godotengine.org/en/stable/classes/class_camera3d.html>`_ Node.
 * Set the ``Transform`` -> **Position** to **6.0**, **10.0**, **6.0**.
-* Set **FOV** to **60.0°** .
 * Set **Rotation** **X** to **-45.0°** and Rotation **Y** to **45.0°**.
 
 4 - Moving the player with code
@@ -136,11 +135,9 @@ This script allows moving the player from point A to point B in the world.
    :force:
 
    # pawn.gd
-
    extends CharacterBody3D
 
    @onready var model: MeshInstance3D = $Model
-   @onready var interactive_grid_3d: InteractiveGrid3D = $"../InteractiveGrid3D"
 
    const SPEED:float = 5.0
 
@@ -176,7 +173,7 @@ Add a Raycast3D Node
 * Select ``PawnPlayer``. 
 * Click **+** and add a `Raycast3D <https://docs.godotengine.org/en/stable/classes/class_raycast3d.html>`_ Node.
  
-* Rename it *“RayCastFromMouse”*.
+* Rename it ``“RayCastFromMouse”``.
 
 Attach the Script
 ~~~~~~~~~~~~~~~~~
@@ -191,10 +188,8 @@ It will be useful for selecting a cell on the grid.
    :force:
 
    # ray_cast_from_mouse.gd
-
    extends RayCast3D
 
-   @onready var camera_3d: Camera3D = $"../Pawn/Camera3D"
    @export var debug_sphere_raycast: MeshInstance3D
 
    func _ready() -> void:
@@ -207,14 +202,14 @@ It will be useful for selecting a cell on the grid.
       add_child(debug_sphere_raycast)
       debug_sphere_raycast.visible = false
 
-   func _process(delta: float) -> void:
+   func _process(_delta: float) -> void:
       debug_sphere_raycast.global_transform.origin = get_ray_intersection_position()
 
    func get_ray_intersection_position() -> Vector3:
       var intersect_ray_position: Vector3 = Vector3.ZERO
       var mouse_pos:Vector2 = get_viewport().get_mouse_position()
-      var ray_origin:Vector3 = camera_3d.project_ray_origin(mouse_pos)
-      var ray_direction:Vector3 = camera_3d.project_ray_normal(mouse_pos)
+      var ray_origin:Vector3 = %Camera3D.project_ray_origin(mouse_pos)
+      var ray_direction:Vector3 = %Camera3D.project_ray_normal(mouse_pos)
       var ray_length:int = 2000
 
       self.global_position = ray_origin
@@ -226,13 +221,14 @@ It will be useful for selecting a cell on the grid.
       self.force_raycast_update()
 
       if self.is_colliding():
-         var collider:Node3D = self.get_collider()
+         #var collider:Node3D = self.get_collider()
 
          intersect_ray_position = self.get_collision_point()
          #print("[get_ray_intersection_position] Collision detected at: ", intersect_ray_position)
          #print("[get_ray_intersection_position] Collision detected with: ", collider.name)
 
       return intersect_ray_position
+
 
 6 - Configuring the Interactive Grid
 ------------------------------------
@@ -309,20 +305,6 @@ Add a Cell Shape
 
 Set ``cell_shape_offset.y`` to **Height / 2**, which equals **3.0**.
 
-.. only:: not i18n
-
-  .. tip:: Add a debug collision shape and include these lines in the script 
-   *interactive_grid.gd* inside the *show_grid()* function, and enable ``Visible Collision Shape``
-   in the ``Debug tab`` of the editor.
-
-   .. code-block:: gdscript
-      :force:
-
-      var cell_global_xform: Transform3D = get_cell_global_transform(cell_index)
-      var offset:Vector3 = get_cell_shape_offset()
-      var offset_xform:Transform3D = Transform3D(Basis.IDENTITY, offset)
-      debug_collision_shape_area_3d.global_transform = cell_global_xform * offset_xform
-
 Multiply all values by two to double the size of the grid cells.
 
 * ``cell_size``
@@ -357,6 +339,22 @@ Set Movement
   * Select ``Movement property``.
   * Click on the dropdown menu and select ``SIX-DIRECTIONS``.
 
+Set Colors
+~~~~~~~~~~
+
+  * Accessible color: ``#282e9f``
+  * Inaccessible color: ``#ff0000``
+  * Unreachable color: ``#ffffff00``
+  * Selected color: ``#00ff00``
+  * Path color: ``#ff8100``
+  * Hovered color: ``#ffff00``
+
+Set Colission
+~~~~~~~~~~~~~
+
+  * Check ``Obstacles Enabled``.
+  * Check ``Floor Enabled``.
+
 7 - Interactive Grid Scripting
 ------------------------------
 
@@ -371,28 +369,22 @@ Attach a Script
    :force:
    
    # interactive_grid_3d.gd
-
    extends InteractiveGrid3D
-
-   @onready var ray_cast_from_mouse: RayCast3D = $"../RayCastFromMouse"
 
    var _path: PackedInt64Array = []
    var _pawn: CharacterBody3D = null
    var _show_grid: bool = false
 
-   @onready var debug_collision_shape_area_3d: CollisionShape3D = $"../DebugCollisionShapeArea3D/DebugCollisionShapeArea3D"
-
    func _ready() -> void:
       _show_grid = false
 
 
-   func _process(delta: float) -> void:
-
+   func _process(_delta: float) -> void:
       if _show_grid == false and self.visible:
          self.set_visible(false)
 
       if self.get_selected_cells().is_empty():
-         self.highlight_on_hover(ray_cast_from_mouse.get_ray_intersection_position())
+         self.highlight_on_hover(%RayCastFromMouse.get_ray_intersection_position())
       else:
          move_along_path(_path)
 
@@ -407,7 +399,7 @@ Attach a Script
       ##     - compute_unreachable_cells
       ##     - Adding custom data
       #endregion
-      
+
       if _pawn == null:
          return
 
@@ -426,6 +418,12 @@ Attach a Script
 
       self.hide_distant_cells(pawn_current_cell_index, 6)
       self.compute_unreachable_cells(pawn_current_cell_index)
+      
+      var neighbors: PackedInt64Array = self.get_neighbors(pawn_current_cell_index)
+      for neighbor_index in neighbors:
+         self.add_custom_cell_data(neighbor_index, "CFL_NEIGHBORS")
+            
+      self.add_custom_cell_data(pawn_current_cell_index, "CFL_PLAYER")
 
       #region update_custom_data()
       ## !Note: Don't forget to call update_custom_data().
@@ -440,7 +438,7 @@ Attach a Script
          if _pawn == null:
             return
 
-         var ray_pos: Vector3 = ray_cast_from_mouse.get_ray_intersection_position()
+         var ray_pos: Vector3 = %RayCastFromMouse.get_ray_intersection_position()
          if ray_pos == null:
             return
 
@@ -493,6 +491,7 @@ Attach a Script
 
    func set_pawn(pawn: CharacterBody3D):
       _pawn = pawn
+
 
 
 Input
@@ -660,7 +659,7 @@ Let's imagine you want to add a trap to your world and make it interact with the
    * Select the World scene.
    * Add a `MeshInstance3D <https://docs.godotengine.org/en/stable/classes/class_meshinstance3d.html>`_.
    * Assign a `TorusMesh <https://docs.godotengine.org/en/stable/classes/class_torusmesh.html>`_. to it.
-   * Rename the Node to **BearTrap**.
+   * Rename the Node to ``"BearTrap"``.
    * Add a `StaticBody3D <https://docs.godotengine.org/en/stable/classes/class_staticbody3d.html>`_ as a child with a `CollisionShape3D <https://docs.godotengine.org/en/stable/classes/class_collisionshape3d.html>`_ set to ``Single Convex``.
    * Place the trap between the two walls.
    * Select the `StaticBody3D <https://docs.godotengine.org/en/stable/classes/class_staticbody3d.html>`_:
@@ -782,28 +781,22 @@ Final Scripts
    :force:
 
    # interactive_grid_3d.gd
-
    extends InteractiveGrid3D
-
-   @onready var ray_cast_from_mouse: RayCast3D = $"../RayCastFromMouse"
 
    var _path: PackedInt64Array = []
    var _pawn: CharacterBody3D = null
    var _show_grid: bool = false
 
-   @onready var debug_collision_shape_area_3d: CollisionShape3D = $"../DebugCollisionShapeArea3D/DebugCollisionShapeArea3D"
-
    func _ready() -> void:
       _show_grid = false
 
 
-   func _process(delta: float) -> void:
-      
+   func _process(_delta: float) -> void:
       if _show_grid == false and self.visible:
          self.set_visible(false)
-         
+
       if self.get_selected_cells().is_empty():
-         self.highlight_on_hover(ray_cast_from_mouse.get_ray_intersection_position())
+         self.highlight_on_hover(%RayCastFromMouse.get_ray_intersection_position())
       else:
          move_along_path(_path)
 
@@ -818,13 +811,10 @@ Final Scripts
       ##     - compute_unreachable_cells
       ##     - Adding custom data
       #endregion
-      
+
       if _pawn == null:
          return
 
-      if not self.is_created():
-         return
-               
       print("show_grid")
       _show_grid = true
 
@@ -841,15 +831,10 @@ Final Scripts
       self.hide_distant_cells(pawn_current_cell_index, 6)
       self.compute_unreachable_cells(pawn_current_cell_index)
       
-      var cell_global_xform: Transform3D = get_cell_global_transform(pawn_current_cell_index)
-      var offset:Vector3 = get_cell_shape_offset()
-      var offset_xform:Transform3D = Transform3D(Basis.IDENTITY, offset)
-      debug_collision_shape_area_3d.global_transform = cell_global_xform * offset_xform
-      
       var neighbors: PackedInt64Array = self.get_neighbors(pawn_current_cell_index)
       for neighbor_index in neighbors:
          self.add_custom_cell_data(neighbor_index, "CFL_NEIGHBORS")
-
+            
       self.add_custom_cell_data(pawn_current_cell_index, "CFL_PLAYER")
 
       #region update_custom_data()
@@ -865,7 +850,7 @@ Final Scripts
          if _pawn == null:
             return
 
-         var ray_pos: Vector3 = ray_cast_from_mouse.get_ray_intersection_position()
+         var ray_pos: Vector3 = %RayCastFromMouse.get_ray_intersection_position()
          if ray_pos == null:
             return
 
@@ -1025,6 +1010,10 @@ Here is what the World scene looks like after setting up walls, the floor, and t
    :target: https://bitaps.com/bc1qz8g4mcmynmnt0fla5aweyl0jnncp959qnshhyd
    :alt: Bitcoin Donation
 
-**Every contribution helps maintain and improve this project. And encourage me to make more projects like this!**
+.. only:: not i18n
 
-*This is optional support. The tool remains free and open-source regardless.*
+  .. tip:: 
+   **Every contribution helps maintain and improve this project. And encourage me to make more projects like this!**
+
+   *This is optional support. The tool remains free and open-source regardless.*
+
